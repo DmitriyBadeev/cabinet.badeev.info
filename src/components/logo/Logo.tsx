@@ -1,10 +1,10 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import styled from "styled-components"
+import styled, { css } from "styled-components"
 
-const LogoStyle = styled.div`
-    font-size: 24px;
-    color: #222;
+const LogoStyle = styled.div<propTypes>`
+    font-size: 1.5rem;
+    color: "#222";
     transition: all 0.2s;
     padding: 0 5px;
     border-radius: 10px;
@@ -13,11 +13,22 @@ const LogoStyle = styled.div`
 `
 
 const Point = styled.span`
-    font-size: 36px;
+    font-size: 2.5rem;
     color: ${(props) => props.theme.primary};
 `
 
-const Logo: React.FC = () => {
+type propTypes = {
+    isSmall?: boolean
+}
+
+const Logo: React.FC<propTypes> = ({ isSmall = false }) => {
+    if (isSmall)
+        return (
+            <Link to="/">
+                <LogoStyle isSmall={isSmall}>B</LogoStyle>
+            </Link>
+        )
+
     return (
         <Link to="/">
             <LogoStyle>
