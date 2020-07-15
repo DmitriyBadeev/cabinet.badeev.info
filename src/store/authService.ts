@@ -1,4 +1,4 @@
-import { UserManager, UserManagerSettings, WebStorageStateStore, User } from "oidc-client"
+import { UserManager, UserManagerSettings, User } from "oidc-client"
 import { action, observable } from "mobx"
 
 const config: UserManagerSettings = {
