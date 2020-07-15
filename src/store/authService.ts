@@ -8,7 +8,6 @@ const config: UserManagerSettings = {
     response_type: "id_token token",
     scope: "openid Portfolio.API",
     post_logout_redirect_uri: "https://badeev.info",
-    userStore: new WebStorageStateStore({ store: window.localStorage }),
 }
 
 const userManager = new UserManager(config)
