@@ -6,7 +6,6 @@ import { ThemeProvider } from "styled-components"
 import Shared from "./pages/shared/Shared"
 import { BrowserRouter } from "react-router-dom"
 import { observer } from "mobx-react"
-import useStore from "store/useStore"
 
 const client = new ApolloClient({
     uri: "https://api.badeev.info/graphql?",
@@ -17,16 +16,6 @@ const theme = {
 }
 
 const App: React.FC = observer(() => {
-    const { AuthService } = useStore()
-
-    useEffect(() => {
-        AuthService.loadUser().then(() => {
-            if (AuthService.user === null) {
-                AuthService.signin()
-            }
-        })
-    }, [AuthService])
-
     return (
         <ApolloProvider client={client}>
             <ThemeProvider theme={theme}>
