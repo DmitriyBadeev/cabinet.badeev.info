@@ -1,5 +1,7 @@
 ## Cabinet.Badeev.info
 
+![CI](https://github.com/DmitriyBadeev/cabinet.badeev.info/workflows/CI/badge.svg)
+
 ## Available Scripts
 
 In the project directory, you can run:

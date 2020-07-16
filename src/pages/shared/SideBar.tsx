@@ -6,6 +6,7 @@ import styled from "styled-components"
 import { observer } from "mobx-react"
 import useStore from "store/useStore"
 import { UserOutlined, AppstoreOutlined, PieChartOutlined } from "@ant-design/icons"
+import { Link } from "react-router-dom"
 
 const { Sider } = Layout
 const { Item } = Menu
@@ -35,13 +36,13 @@ const SideBar: React.FC = observer(() => {
             <MenuWrapper>
                 <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
                     <Item key="1" icon={<UserOutlined />}>
-                        Главная
+                        <Link to="/">Главная</Link>
                     </Item>
                     <Item key="2" icon={<AppstoreOutlined />}>
-                        Портфолио
+                        <Link to="/portfolio">Портфолио</Link>
                     </Item>
                     <Item key="3" icon={<PieChartOutlined />}>
-                        Финансы
+                        <Link to="/finance">Финансы</Link>
                     </Item>
                 </Menu>
             </MenuWrapper>
