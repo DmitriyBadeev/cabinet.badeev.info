@@ -1,5 +1,5 @@
 import React from "react"
-import FadePage from "../../components/fade/FadePage"
+import FadePage from "components/fade/FadePage"
 import { Typography } from "antd"
 
 const { Title } = Typography
