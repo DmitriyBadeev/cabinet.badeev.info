@@ -5,7 +5,7 @@ import { Center } from "common-styles"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import useStore from "store/useStore"
-import { UserOutlined, AppstoreOutlined, PieChartOutlined } from "@ant-design/icons"
+import { UserOutlined, AppstoreOutlined, PieChartOutlined, ArrowLeftOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 
 const { Sider } = Layout
@@ -33,6 +33,7 @@ const SideBar: React.FC = observer(() => {
             <LogoWrapper>
                 <Logo isSmall={NavStore.isMenuCollapsed} />
             </LogoWrapper>
+
             <MenuWrapper>
                 <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
                     <Item key="1" icon={<UserOutlined />}>
@@ -43,6 +44,9 @@ const SideBar: React.FC = observer(() => {
                     </Item>
                     <Item key="3" icon={<PieChartOutlined />}>
                         <Link to="/finance">Финансы</Link>
+                    </Item>
+                    <Item key="4" icon={<ArrowLeftOutlined />} style={{ marginTop: "20px" }}>
+                        <a href="https://badeev.info">Назад на промо</a>
                     </Item>
                 </Menu>
             </MenuWrapper>
