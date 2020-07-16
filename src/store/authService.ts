@@ -1,5 +1,5 @@
 import { UserManager, UserManagerSettings, User } from "oidc-client"
-import { action, observable } from "mobx"
+import { action, observable, computed } from "mobx"
 
 const config: UserManagerSettings = {
     authority: "https://identity.badeev.info",
@@ -14,6 +14,10 @@ const userManager = new UserManager(config)
 
 export default class AuthService {
     @observable user: User | null = null
+
+    @computed get isAuthenticated() {
+        return this.user !== null
+    }
 
     @action signin() {
         userManager.signinRedirect()
