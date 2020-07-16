@@ -7,6 +7,7 @@ import PortfolioPage from "pages/portfolio/PortfolioPage"
 import FinancePage from "pages/finance/FinancePage"
 import AuthComplete from "pages/auth/AuthComplete"
 import Enter from "pages/auth/Enter"
+import Loading from "components/loading/Loading"
 
 const Routes: React.FC = () => {
     return (
@@ -46,6 +47,10 @@ const ScrollToTop: React.FC = (props) => {
 
 const PrivateRoute: React.FC<RouteProps> = observer(({ children, ...rest }) => {
     const { AuthService } = useStore()
+
+    if (AuthService.isLoadingUser) {
+        return <Loading />
+    }
 
     return (
         <Route

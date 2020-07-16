@@ -13,7 +13,13 @@ const MainPage: React.FC = observer(() => {
         <FadePage>
             <Title level={1}>Главная страница</Title>
             <Button onClick={AuthService.signin}>Войти</Button>
-            <Paragraph>{AuthService.user?.access_token}</Paragraph>
+
+            {AuthService.isAuthenticated && (
+                <>
+                    <Paragraph>{AuthService.user?.access_token}</Paragraph>
+                    <Button onClick={AuthService.signout}>Выйти</Button>
+                </>
+            )}
         </FadePage>
     )
 })
