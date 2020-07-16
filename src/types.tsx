@@ -1,4 +1,6 @@
 import gql from "graphql-tag"
+import * as ApolloReactCommon from "@apollo/react-common"
+import * as ApolloReactHooks from "@apollo/react-hooks"
 export type Maybe<T> = T | null
 export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] }
 /** All built-in and custom scalars, mapped to their actual values */
@@ -20,8 +22,10 @@ export type Queries = {
     authors?: Maybe<Array<Maybe<Author>>>
     backendTags?: Maybe<Array<Maybe<Tag>>>
     frontendTags?: Maybe<Array<Maybe<Tag>>>
+    secretData?: Maybe<Scalars["String"]>
     tags?: Maybe<Array<Maybe<Tag>>>
     tagsByWorkId?: Maybe<Array<Maybe<Tag>>>
+    tagWorkConnections?: Maybe<Array<Maybe<TagWork>>>
     workById?: Maybe<Work>
     works?: Maybe<WorkConnection>
     worksByTagIds?: Maybe<WorkConnection>
@@ -290,6 +294,15 @@ export type Tag = {
     works?: Maybe<Array<Maybe<TagWork>>>
 }
 
+export type TagWork = {
+    __typename?: "TagWork"
+    id: Scalars["Int"]
+    tag?: Maybe<Tag>
+    tagId: Scalars["Int"]
+    work?: Maybe<Work>
+    workId: Scalars["Int"]
+}
+
 export type Author = {
     __typename?: "Author"
     id: Scalars["Int"]
@@ -337,15 +350,6 @@ export type UpdateTagInput = {
     title?: Maybe<Scalars["String"]>
 }
 
-export type TagWork = {
-    __typename?: "TagWork"
-    id: Scalars["Int"]
-    tag?: Maybe<Tag>
-    tagId: Scalars["Int"]
-    work?: Maybe<Work>
-    workId: Scalars["Int"]
-}
-
 export type FrontendTag = {
     __typename?: "FrontendTag"
     id: Scalars["Int"]
@@ -375,12 +379,39 @@ export type UpdateAuthorInput = {
     workId?: Maybe<Scalars["Int"]>
 }
 
-export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never }>
+export type SecretQueryVariables = Exact<{ [key: string]: never }>
 
-export type Unnamed_1_Query = { __typename?: "Queries" } & {
-    works?: Maybe<
-        { __typename?: "WorkConnection" } & {
-            nodes?: Maybe<Array<Maybe<{ __typename?: "Work" } & Pick<Work, "id" | "title">>>>
-        }
-    >
+export type SecretQuery = { __typename?: "Queries" } & Pick<Queries, "secretData">
+
+export const SecretDocument = gql`
+    query Secret {
+        secretData
+    }
+`
+
+/**
+ * __useSecretQuery__
+ *
+ * To run a query within a React component, call `useSecretQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSecretQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSecretQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useSecretQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SecretQuery, SecretQueryVariables>) {
+    return ApolloReactHooks.useQuery<SecretQuery, SecretQueryVariables>(SecretDocument, baseOptions)
 }
+export function useSecretLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SecretQuery, SecretQueryVariables>
+) {
+    return ApolloReactHooks.useLazyQuery<SecretQuery, SecretQueryVariables>(SecretDocument, baseOptions)
+}
+export type SecretQueryHookResult = ReturnType<typeof useSecretQuery>
+export type SecretLazyQueryHookResult = ReturnType<typeof useSecretLazyQuery>
+export type SecretQueryResult = ApolloReactCommon.QueryResult<SecretQuery, SecretQueryVariables>

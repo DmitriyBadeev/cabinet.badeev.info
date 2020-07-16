@@ -9,6 +9,7 @@ const prodConfig: UserManagerSettings = {
     scope: "openid Portfolio.API",
     post_logout_redirect_uri: "https://badeev.info",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
+    automaticSilentRenew: true,
 }
 
 const devConfig: UserManagerSettings = {
@@ -19,6 +20,7 @@ const devConfig: UserManagerSettings = {
     scope: "openid Portfolio.API",
     post_logout_redirect_uri: "https://badeev.info",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
+    automaticSilentRenew: true,
 }
 
 const getConfig = () => {
@@ -52,9 +54,9 @@ export default class AuthService {
         userManager
             .signinRedirectCallback()
             .then((user) => {
-                this.user = user
-                console.log("collback user")
+                console.log("callback user")
                 console.log(user)
+                this.setUser(user)
                 this.isAuthenticating = false
             })
             .catch((e) => {
@@ -70,12 +72,19 @@ export default class AuthService {
             console.log("loaded user")
             console.log(user)
 
-            this.user = user
+            if (user !== null) {
+                this.setUser(user)
+            }
             this.isLoadingUser = false
         })
     }
 
     @action signout() {
         userManager.signoutRedirect()
+    }
+
+    setUser(user: User) {
+        this.user = user
+        window.localStorage.setItem("token", `Bearer ${user.access_token}`)
     }
 }

@@ -10,6 +10,9 @@ import useStore from "store/useStore"
 
 const client = new ApolloClient({
     uri: "https://api.badeev.info/graphql?",
+    headers: {
+        Authorization: window.localStorage.getItem("token"),
+    },
 })
 
 const theme = {

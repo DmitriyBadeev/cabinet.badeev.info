@@ -1,5 +1,5 @@
 import React from "react"
-import { Layout } from "antd"
+import { Layout, Button } from "antd"
 import styled, { css } from "styled-components"
 import useStore from "store/useStore"
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons"
@@ -8,6 +8,9 @@ import { observer } from "mobx-react"
 const HeaderWrapper = styled(Layout.Header)`
     background: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `
 
 const Icon = css`
@@ -30,13 +33,14 @@ const MenuFold = styled(MenuFoldOutlined)`
 `
 
 const Header: React.FC = observer(() => {
-    const { NavStore } = useStore()
+    const { NavStore, AuthService } = useStore()
 
     return (
         <HeaderWrapper>
             {React.createElement(NavStore.isMenuCollapsed ? MenuUnfold : MenuFold, {
                 onClick: () => NavStore.toggleMenu(),
             })}
+            {AuthService.isAuthenticated && <Button onClick={AuthService.signout}>Выйти</Button>}
         </HeaderWrapper>
     )
 })
