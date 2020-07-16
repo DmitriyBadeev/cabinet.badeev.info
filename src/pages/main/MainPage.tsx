@@ -1,6 +1,6 @@
 import React from "react"
 import FadePage from "components/fade/FadePage"
-import { Typography } from "antd"
+import { Typography, Button } from "antd"
 import { observer } from "mobx-react"
 import useStore from "store/useStore"
 
@@ -12,6 +12,7 @@ const MainPage: React.FC = observer(() => {
     return (
         <FadePage>
             <Title level={1}>Главная страница</Title>
+            <Button onClick={AuthService.signin}>Войти</Button>
             <Paragraph>{AuthService.user?.access_token}</Paragraph>
         </FadePage>
     )
