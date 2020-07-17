@@ -5,8 +5,8 @@ import { Center } from "common-styles"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import useStore from "store/useStore"
-import { UserOutlined, AppstoreOutlined, PieChartOutlined, ArrowLeftOutlined } from "@ant-design/icons"
-import { Link } from "react-router-dom"
+import { UserOutlined, AppstoreOutlined, PieChartOutlined } from "@ant-design/icons"
+import { Link, useLocation } from "react-router-dom"
 
 const { Sider } = Layout
 const { Item } = Menu
@@ -27,6 +27,21 @@ const StyledSider = styled(Sider)`
 
 const SideBar: React.FC = observer(() => {
     const { NavStore } = useStore()
+    const location = useLocation()
+
+    const getRoute = () => {
+        if (location.pathname === "/") {
+            return ["1"]
+        }
+
+        if (location.pathname === "/portfolio") {
+            return ["2"]
+        }
+
+        if (location.pathname === "/finance") {
+            return ["3"]
+        }
+    }
 
     return (
         <StyledSider width={230} trigger={null} collapsible collapsed={NavStore.isMenuCollapsed} theme="light">
@@ -35,7 +50,7 @@ const SideBar: React.FC = observer(() => {
             </LogoWrapper>
 
             <MenuWrapper>
-                <Menu theme="light" mode="inline" defaultSelectedKeys={["1"]}>
+                <Menu theme="light" mode="inline" defaultSelectedKeys={getRoute()}>
                     <Item key="1" icon={<UserOutlined />}>
                         <Link to="/">Главная</Link>
                     </Item>
@@ -44,9 +59,6 @@ const SideBar: React.FC = observer(() => {
                     </Item>
                     <Item key="3" icon={<PieChartOutlined />}>
                         <Link to="/finance">Финансы</Link>
-                    </Item>
-                    <Item key="4" icon={<ArrowLeftOutlined />} style={{ marginTop: "20px" }}>
-                        <a href="https://badeev.info">Назад на промо</a>
                     </Item>
                 </Menu>
             </MenuWrapper>

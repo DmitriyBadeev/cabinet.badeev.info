@@ -10,8 +10,13 @@ import useStore from "store/useStore"
 
 const client = new ApolloClient({
     uri: "https://api.badeev.info/graphql?",
-    headers: {
-        Authorization: window.localStorage.getItem("token"),
+    request: (operation) => {
+        const token = window.localStorage.getItem("token")
+        operation.setContext({
+            headers: {
+                Authorization: token ? token : "",
+            },
+        })
     },
 })
 
