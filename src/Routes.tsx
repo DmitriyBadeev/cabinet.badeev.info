@@ -7,6 +7,7 @@ import PortfolioPage from "pages/portfolio/PortfolioPage"
 import FinancePage from "pages/finance/FinancePage"
 import AuthComplete from "pages/auth/AuthComplete"
 import Enter from "pages/auth/Enter"
+import Signout from "pages/auth/Signout"
 import Loading from "components/loading/Loading"
 
 const Routes: React.FC = () => {
@@ -27,6 +28,9 @@ const Routes: React.FC = () => {
                 </Route>
                 <Route exact path="/auth-complete">
                     <AuthComplete />
+                </Route>
+                <Route exact path="/signout">
+                    <Signout />
                 </Route>
             </Switch>
         </ScrollToTop>

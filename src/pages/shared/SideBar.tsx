@@ -41,6 +41,8 @@ const SideBar: React.FC = observer(() => {
         if (location.pathname === "/finance") {
             return ["3"]
         }
+
+        return ["1"]
     }
 
     return (

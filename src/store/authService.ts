@@ -7,7 +7,7 @@ const prodConfig: UserManagerSettings = {
     redirect_uri: "https://cabinet.badeev.info/auth-complete",
     response_type: "code",
     scope: "openid Portfolio.API",
-    post_logout_redirect_uri: "https://badeev.info",
+    post_logout_redirect_uri: "https://cabinet.badeev.info/signout",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
     automaticSilentRenew: true,
     silent_redirect_uri: "https://cabinet.badeev.info/silent.html",
@@ -19,7 +19,7 @@ const devConfig: UserManagerSettings = {
     redirect_uri: "http://localhost:3000/auth-complete",
     response_type: "code",
     scope: "openid Portfolio.API",
-    post_logout_redirect_uri: "https://badeev.info",
+    post_logout_redirect_uri: "http://localhost:3000/signout",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
     automaticSilentRenew: true,
     silent_redirect_uri: "http://localhost:3000/silent.html",
@@ -102,6 +102,14 @@ export default class AuthService {
 
     @action signout() {
         userManager.signoutRedirect()
+    }
+
+    @action signoutRedirectCallback() {
+        return userManager.signoutRedirectCallback()
+    }
+
+    @action clearToken() {
+        window.localStorage.removeItem("token")
     }
 
     setUser(user: User) {
