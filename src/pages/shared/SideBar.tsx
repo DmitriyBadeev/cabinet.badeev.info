@@ -18,10 +18,12 @@ const LogoWrapper = styled(Center)`
 `
 
 const MenuWrapper = styled.div`
-    margin: 30px 0;
+    margin: 40px 0;
 `
 
 const StyledSider = styled(Sider)`
+    position: fixed;
+    height: 100vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 `
 
@@ -46,7 +48,7 @@ const SideBar: React.FC = observer(() => {
     }
 
     return (
-        <StyledSider width={230} trigger={null} collapsible collapsed={NavStore.isMenuCollapsed} theme="light">
+        <StyledSider width={210} trigger={null} collapsible collapsed={NavStore.isMenuCollapsed} theme="light">
             <LogoWrapper>
                 <Logo isSmall={NavStore.isMenuCollapsed} />
             </LogoWrapper>

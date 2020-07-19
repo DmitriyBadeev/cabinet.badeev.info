@@ -3,7 +3,7 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 const LogoStyle = styled.div<propTypes>`
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: "#222";
     transition: all 0.2s;
     padding: 0 5px;
@@ -13,7 +13,7 @@ const LogoStyle = styled.div<propTypes>`
 `
 
 const Point = styled.span`
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: ${(props) => props.theme.primary};
 `
 

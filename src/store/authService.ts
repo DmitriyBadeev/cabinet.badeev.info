@@ -6,7 +6,8 @@ const prodConfig: UserManagerSettings = {
     client_id: "spa_badeev",
     redirect_uri: "https://cabinet.badeev.info/auth-complete",
     response_type: "code",
-    scope: "openid Portfolio.API",
+    loadUserInfo: true,
+    scope: "openid profile Portfolio.API",
     post_logout_redirect_uri: "https://cabinet.badeev.info/signout",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
     automaticSilentRenew: true,
@@ -18,7 +19,8 @@ const devConfig: UserManagerSettings = {
     client_id: "spa_badeev",
     redirect_uri: "http://localhost:3000/auth-complete",
     response_type: "code",
-    scope: "openid Portfolio.API",
+    loadUserInfo: true,
+    scope: "openid profile Portfolio.API",
     post_logout_redirect_uri: "http://localhost:3000/signout",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
     automaticSilentRenew: true,
@@ -71,8 +73,6 @@ export default class AuthService {
         userManager
             .signinRedirectCallback()
             .then((user) => {
-                console.log("callback user")
-                console.log(user)
                 this.setUser(user)
                 this.isAuthenticating = false
             })
@@ -87,9 +87,6 @@ export default class AuthService {
         userManager
             .getUser()
             .then((user) => {
-                console.log("loaded user")
-                console.log(user)
-
                 if (user !== null) {
                     this.setUser(user)
                 }
@@ -115,9 +112,6 @@ export default class AuthService {
     setUser(user: User) {
         this.user = user
         window.localStorage.setItem("token", `Bearer ${user.access_token}`)
-
-        console.log(this.user.expired)
-        console.log(this.user.expires_in)
     }
 
     handleError(error: any) {

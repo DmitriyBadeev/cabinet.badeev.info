@@ -12,7 +12,7 @@ module.exports = {
                             "@link-color": "@heading-color",
                             "@link-color-dark": "fade(#fff, 100%)",
                             "@link-hover-color": "#407BFF",
-                            "@font-size-base": "16px",
+                            "@font-size-base": "15px",
                             "@heading-color": "#222",
                             "@text-color": "#333",
                         },

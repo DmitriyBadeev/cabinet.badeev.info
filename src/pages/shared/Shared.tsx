@@ -1,32 +1,36 @@
 import React from "react"
-import { Layout } from "antd"
 import SideBar from "./SideBar"
 import Header from "./Header"
 import styled from "styled-components"
+import { Layout } from "antd"
+import { observer } from "mobx-react"
+import useStore from "store/useStore"
 
-const { Content } = Layout
+type propStyleType = {
+    collapsedSider: boolean
+}
 
 const MainLayout = styled(Layout)`
     min-height: 100vh;
 `
 
-const ContentWrapper = styled(Content)`
-    margin: 40px;
-    background: white;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+const PageLayout = styled.div<propStyleType>`
+    margin: 40px 40px 40px ${(props) => (props.collapsedSider ? "120px" : "250px")};
+    transition: all 0.2s;
 `
 
-const Shared: React.FC = (props) => {
+const Shared: React.FC = observer((props) => {
+    const { NavStore } = useStore()
+
     return (
         <MainLayout>
             <SideBar />
             <Layout>
                 <Header />
-                <ContentWrapper>{props.children}</ContentWrapper>
+                <PageLayout collapsedSider={NavStore.isMenuCollapsed}>{props.children}</PageLayout>
             </Layout>
         </MainLayout>
     )
-}
+})
 
 export default Shared
