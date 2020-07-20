@@ -19,14 +19,14 @@ const CountVisitsAndUsers: React.FC = observer(() => {
         MetrikaService.getVisitsAndUsersByMonth().then((data) => {
             const dataVisits: DataItemType[] = data[0].map((el, i) => {
                 const now = new Date()
-                now.setDate(now.getDate() - (31 - i))
+                now.setDate(now.getDate() - (30 - i))
 
                 return { day: getShortStringDate(now.getTime()), type: "Визиты", value: el }
             })
 
             const dataUsers: DataItemType[] = data[1].map((el, i) => {
                 const now = new Date()
-                now.setDate(now.getDate() - (31 - i))
+                now.setDate(now.getDate() - (30 - i))
 
                 return { day: getShortStringDate(now.getTime()), type: "Посетители", value: el }
             })

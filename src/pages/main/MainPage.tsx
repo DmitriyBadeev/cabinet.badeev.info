@@ -2,80 +2,24 @@ import React from "react"
 import FadePage from "components/fade/FadePage"
 import { observer } from "mobx-react"
 import { ContentWrapper } from "common-styles"
-import { Row, Col, Typography, List } from "antd"
-import SearchPhrases from "components/metrika/SearchPhrases"
-import CountViewsChart from "components/metrika/CountViewsChart"
-import GeographyReport from "components/metrika/GeographyReport"
-import CountVisitsAndUsers from "components/metrika/CountVisitsAndUsers"
-import GlobalLink from "components/links/GlobalLink"
+import { Row, Col, Typography } from "antd"
 
-const { Title, Text } = Typography
-
-const sourceOfMetrika = [
-    {
-        data: "Яндекс Метрика",
-        link: "https://metrika.yandex.ru/dashboard?group=day&period=month&id=65373601",
-    },
-    {
-        data: "Яндекс Вебмастер",
-        link: "https://webmaster.yandex.ru/site/https:badeev.info:443/dashboard/",
-    },
-    {
-        data: "Google Search Console",
-        link: "https://search.google.com/search-console?resource_id=https%3A%2F%2Fbadeev.info%2F",
-    },
-    {
-        data: "Google Аналитика",
-        link: "https://analytics.google.com/analytics/web/#/report-home/a171598449w238580816p222994894",
-    },
-]
+const { Title } = Typography
 
 const MainPage: React.FC = observer(() => {
     return (
         <FadePage>
             <Row justify="space-between" gutter={[0, 30]}>
-                <Col span={11}>
+                <Col span={15}>
                     <ContentWrapper>
-                        <Title level={4}>Количество визитов и посетителей</Title>
-                        <CountVisitsAndUsers />
+                        <Title level={4}>Конституция</Title>
                     </ContentWrapper>
                 </Col>
-                <Col span={12}>
-                    <ContentWrapper>
-                        <Title level={4}>Количество просмотров</Title>
-                        <CountViewsChart />
-                    </ContentWrapper>
+                <Col span={8}>
+                    <ContentWrapper></ContentWrapper>
                 </Col>
                 <Col span={24}>
-                    <ContentWrapper>
-                        <Title level={4}>География</Title>
-                        <GeographyReport />
-                    </ContentWrapper>
-                </Col>
-                <Col span={12}>
-                    <ContentWrapper>
-                        <Title level={4}>Поисковые фразы</Title>
-                        <SearchPhrases />
-                    </ContentWrapper>
-                </Col>
-                <Col span={11}>
-                    <ContentWrapper>
-                        <Title level={4}>Ссылки на метрики</Title>
-                        <List
-                            dataSource={sourceOfMetrika}
-                            bordered
-                            size="small"
-                            renderItem={(item) => {
-                                return (
-                                    <List.Item>
-                                        <Text>
-                                            <GlobalLink to={item.link}>{item.data}</GlobalLink>
-                                        </Text>
-                                    </List.Item>
-                                )
-                            }}
-                        />
-                    </ContentWrapper>
+                    <ContentWrapper></ContentWrapper>
                 </Col>
             </Row>
         </FadePage>

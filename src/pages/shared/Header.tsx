@@ -17,10 +17,10 @@ const HeaderWrapper = styled(Layout.Header)`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: all 0.2s;
 `
 const HeaderOuter = styled.div<propStyleType>`
     margin-left: ${(props) => (props.collapsedSider ? "80px" : "200px")};
+    transition: all 0.2s;
 `
 
 const Icon = css`
