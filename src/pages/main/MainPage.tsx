@@ -2,7 +2,7 @@ import React from "react"
 import FadePage from "components/fade/FadePage"
 import { observer } from "mobx-react"
 import { Row, Col } from "antd"
-import Constitution from "secrets/Constitution"
+import Constitution from "pages/main/Constitution"
 
 const MainPage: React.FC = observer(() => {
     return (

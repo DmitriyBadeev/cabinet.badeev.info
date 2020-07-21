@@ -1,6 +1,6 @@
 import { UserManager, User } from "oidc-client"
 import { action, observable, computed } from "mobx"
-import { devConfig, prodConfig } from "secrets/Config"
+import { devConfig, prodConfig } from "store/Config"
 
 const getConfig = () => {
     const hostname = window.location.hostname
