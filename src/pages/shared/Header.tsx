@@ -1,6 +1,6 @@
 import React from "react"
 import { Layout, Button, Typography, Avatar, Space, Badge } from "antd"
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 import useStore from "store/useStore"
 import { ExportOutlined } from "@ant-design/icons"
 import { observer } from "mobx-react"
