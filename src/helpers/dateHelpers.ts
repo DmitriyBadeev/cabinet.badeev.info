@@ -7,6 +7,17 @@ export const getStringDate = (date: string | number) => {
     })
 }
 
+export const getStringDateAndTime = (date: string | number) => {
+    return new Date(date).toLocaleString("ru", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+    })
+}
+
 export const getShortStringDate = (date: string | number) => {
     return new Date(date).toLocaleString("ru", {
         month: "long",

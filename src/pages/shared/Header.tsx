@@ -2,10 +2,11 @@ import React from "react"
 import { Layout, Button, Typography, Avatar, Space, Badge } from "antd"
 import styled, { css } from "styled-components"
 import useStore from "store/useStore"
-import { MenuUnfoldOutlined, MenuFoldOutlined, ExportOutlined } from "@ant-design/icons"
+import { ExportOutlined } from "@ant-design/icons"
 import { observer } from "mobx-react"
 import { useSecretQuery } from "types"
 import GlobalLink from "components/links/GlobalLink"
+import Time from "components/time/Time"
 
 type propStyleType = {
     collapsedSider: boolean
@@ -23,25 +24,6 @@ const HeaderOuter = styled.div<propStyleType>`
     transition: all 0.2s;
 `
 
-const Icon = css`
-    font-size: 18px;
-    line-height: 64px;
-    padding: 0 10px;
-    cursor: pointer;
-    transition: color 0.3s;
-    &:hover {
-        color: ${(props) => props.theme.primary};
-    }
-`
-
-const MenuUnfold = styled(MenuUnfoldOutlined)`
-    ${Icon}
-`
-
-const MenuFold = styled(MenuFoldOutlined)`
-    ${Icon}
-`
-
 const { Text } = Typography
 
 const WrapperIdentity = styled.div``
@@ -53,9 +35,8 @@ const Header: React.FC = observer(() => {
     return (
         <HeaderOuter collapsedSider={NavStore.isMenuCollapsed}>
             <HeaderWrapper>
-                {React.createElement(NavStore.isMenuCollapsed ? MenuUnfold : MenuFold, {
-                    onClick: () => NavStore.toggleMenu(),
-                })}
+                <Time />
+
                 {AuthService.isAuthenticated && (
                     <WrapperIdentity>
                         <Space size="large">

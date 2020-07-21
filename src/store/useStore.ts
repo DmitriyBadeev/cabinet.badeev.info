@@ -1,5 +1,5 @@
 import React from "react"
-import NavStore from "./NavStore"
+import NavStore from "./navStore"
 import AuthService from "./authService"
 import MetrikaService from "./metrikaService"
 

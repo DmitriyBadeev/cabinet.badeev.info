@@ -1,8 +1,6 @@
 import axios from "axios"
 import { action, observable } from "mobx"
-
-const YANDEX_TOKEN = "AgAAAAAr7vKQAAaBZ5S-_qh5tEU8kBa1RONuD7c"
-const COUNTER_ID = "65373601"
+import { YANDEX_TOKEN, COUNTER_ID } from "secrets/Config"
 
 const METRIKA_VISITS = "ym:s:visits"
 const METRIKA_USERS = "ym:s:users"

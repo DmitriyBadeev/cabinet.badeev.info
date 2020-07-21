@@ -21,6 +21,6 @@ export const Underline = styled.span`
 export const ContentWrapper = styled(Content)`
     background: white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+    padding: 25px;
     border-radius: 5px;
 `

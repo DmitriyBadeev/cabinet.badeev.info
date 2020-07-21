@@ -52,7 +52,13 @@ const SideBar: React.FC = observer(() => {
     }
 
     return (
-        <StyledSider width={210} trigger={null} collapsible collapsed={NavStore.isMenuCollapsed} theme="light">
+        <StyledSider
+            width={210}
+            collapsible
+            onCollapse={() => NavStore.toggleMenu()}
+            collapsed={NavStore.isMenuCollapsed}
+            theme="light"
+        >
             <LogoWrapper>
                 <Logo isSmall={NavStore.isMenuCollapsed} />
             </LogoWrapper>
