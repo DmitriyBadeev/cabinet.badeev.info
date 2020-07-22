@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Layout, Button, Typography, Avatar, Space, Badge } from "antd"
 import styled from "styled-components"
 import useStore from "store/useStore"
 import { ExportOutlined } from "@ant-design/icons"
 import { observer } from "mobx-react"
-import { useSecretQuery } from "types"
+import { useSecretLazyQuery } from "types"
 import GlobalLink from "components/links/GlobalLink"
 import Time from "components/time/Time"
 
@@ -30,7 +30,17 @@ const WrapperIdentity = styled.div``
 
 const Header: React.FC = observer(() => {
     const { NavStore, AuthService } = useStore()
-    const { data } = useSecretQuery()
+    const [query, { data, error }] = useSecretLazyQuery()
+
+    useEffect(() => {
+        query()
+    }, [query])
+
+    useEffect(() => {
+        if (error) {
+            query()
+        }
+    }, [data, query, error])
 
     return (
         <HeaderOuter collapsedSider={NavStore.isMenuCollapsed}>

@@ -26,6 +26,7 @@ export type Queries = {
     tags?: Maybe<Array<Maybe<Tag>>>
     tagsByWorkId?: Maybe<Array<Maybe<Tag>>>
     tagWorkConnections?: Maybe<Array<Maybe<TagWork>>>
+    typografText?: Maybe<Scalars["String"]>
     workById?: Maybe<Work>
     works?: Maybe<WorkConnection>
     worksByTagIds?: Maybe<WorkConnection>
@@ -41,6 +42,10 @@ export type QueriesTagsArgs = {
 
 export type QueriesTagsByWorkIdArgs = {
     workId: Scalars["Int"]
+}
+
+export type QueriesTypografTextArgs = {
+    text?: Maybe<Scalars["String"]>
 }
 
 export type QueriesWorkByIdArgs = {
@@ -383,6 +388,12 @@ export type SecretQueryVariables = Exact<{ [key: string]: never }>
 
 export type SecretQuery = { __typename?: "Queries" } & Pick<Queries, "secretData">
 
+export type TypografTextQueryVariables = Exact<{
+    text: Scalars["String"]
+}>
+
+export type TypografTextQuery = { __typename?: "Queries" } & Pick<Queries, "typografText">
+
 export const SecretDocument = gql`
     query Secret {
         secretData
@@ -415,3 +426,41 @@ export function useSecretLazyQuery(
 export type SecretQueryHookResult = ReturnType<typeof useSecretQuery>
 export type SecretLazyQueryHookResult = ReturnType<typeof useSecretLazyQuery>
 export type SecretQueryResult = ApolloReactCommon.QueryResult<SecretQuery, SecretQueryVariables>
+export const TypografTextDocument = gql`
+    query typografText($text: String!) {
+        typografText(text: $text)
+    }
+`
+
+/**
+ * __useTypografTextQuery__
+ *
+ * To run a query within a React component, call `useTypografTextQuery` and pass it any options that fit your needs.
+ * When your component renders, `useTypografTextQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useTypografTextQuery({
+ *   variables: {
+ *      text: // value for 'text'
+ *   },
+ * });
+ */
+export function useTypografTextQuery(
+    baseOptions?: ApolloReactHooks.QueryHookOptions<TypografTextQuery, TypografTextQueryVariables>
+) {
+    return ApolloReactHooks.useQuery<TypografTextQuery, TypografTextQueryVariables>(TypografTextDocument, baseOptions)
+}
+export function useTypografTextLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<TypografTextQuery, TypografTextQueryVariables>
+) {
+    return ApolloReactHooks.useLazyQuery<TypografTextQuery, TypografTextQueryVariables>(
+        TypografTextDocument,
+        baseOptions
+    )
+}
+export type TypografTextQueryHookResult = ReturnType<typeof useTypografTextQuery>
+export type TypografTextLazyQueryHookResult = ReturnType<typeof useTypografTextLazyQuery>
+export type TypografTextQueryResult = ApolloReactCommon.QueryResult<TypografTextQuery, TypografTextQueryVariables>

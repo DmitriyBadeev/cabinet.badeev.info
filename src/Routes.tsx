@@ -7,6 +7,7 @@ import PortfolioPage from "pages/portfolio/PortfolioPage"
 import FinancePage from "pages/finance/FinancePage"
 import MetrikaPage from "pages/metrika/MetrikaPage"
 import AuthComplete from "pages/auth/AuthComplete"
+import ToolsPage from "pages/tools/ToolsPage"
 import Enter from "pages/auth/Enter"
 import Signout from "pages/auth/Signout"
 import Loading from "components/loading/Loading"
@@ -26,6 +27,9 @@ const Routes: React.FC = () => {
                 </PrivateRoute>
                 <PrivateRoute exact path="/metrika">
                     <MetrikaPage />
+                </PrivateRoute>
+                <PrivateRoute exact path="/tools">
+                    <ToolsPage />
                 </PrivateRoute>
                 <Route exact path="/enter">
                     <Enter />

@@ -5,7 +5,7 @@ import { Center } from "common-styles"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import useStore from "store/useStore"
-import { UserOutlined, AppstoreOutlined, PieChartOutlined, LineChartOutlined } from "@ant-design/icons"
+import { UserOutlined, AppstoreOutlined, PieChartOutlined, LineChartOutlined, ToolOutlined } from "@ant-design/icons"
 import { Link, useLocation } from "react-router-dom"
 
 const { Sider } = Layout
@@ -48,6 +48,10 @@ const SideBar: React.FC = observer(() => {
             return ["4"]
         }
 
+        if (location.pathname === "/tools") {
+            return ["5"]
+        }
+
         return ["1"]
     }
 
@@ -76,6 +80,9 @@ const SideBar: React.FC = observer(() => {
                     </Item>
                     <Item key="4" icon={<LineChartOutlined />}>
                         <Link to="/metrika">Метрика</Link>
+                    </Item>
+                    <Item key="5" icon={<ToolOutlined />}>
+                        <Link to="/tools">Инструменты</Link>
                     </Item>
                 </Menu>
             </MenuWrapper>

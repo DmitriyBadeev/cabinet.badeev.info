@@ -1,0 +1,3 @@
+query typografText($text: String!) {
+    typografText(text: $text)
+}
