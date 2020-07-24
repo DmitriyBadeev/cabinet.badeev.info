@@ -4,6 +4,22 @@ body {
     margin: 0;
 }
 
+/*------Draggable table-----*/
+
+.row-dragging {
+    background: #fafafa;
+    border: 1px solid #ccc;
+}
+
+.row-dragging td {
+    padding: 16px;
+    visibility: hidden;
+}
+
+.row-dragging .drag-visible {
+    visibility: visible;
+}
+
 /*------Page Fade-----*/
 
 .page-fade-enter-active {
@@ -13,4 +29,130 @@ body {
 .page-fade-enter-done {
     transform: translateY(0) !important;
     opacity: 1 !important;
+}
+
+/*------Content work classes-----*/
+
+.content .block {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.content .video {
+    display: block;
+
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+
+    @media screen and (min-width: 1200px) {
+        height: 80vh;
+    }
+
+    @media screen and (max-width: 1200px) {
+        width: 100%;
+    }
+}
+
+.content .text {
+    margin: 60px auto;
+
+    h3 {
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    @media screen and (min-width: 1000px) {
+        width: 55vw;
+    }
+
+    @media screen and (max-width: 1000px) {
+        width: 100%;
+    }
+}
+
+.content .image {
+    display: block;
+    margin: 30px auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+
+    @media screen and (min-width: 1000px) {
+        width: 55vw;
+    }
+
+    @media screen and (max-width: 1000px) {
+        width: 100%;
+    }
+}
+
+.content .block img {
+    display: block;
+    border-radius: 10px;
+}
+
+.content .desc h3 {
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.logo img {
+    width: 150px;
+}
+
+@media screen and (min-width: 1200px) {
+    .content .block img {
+        width: 40vw;
+    }
+    .content .desc {
+        width: 40vw;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .content .block img {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .content .block {
+        margin-bottom: 40px;
+    }
+    .content .desc {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .content .desc,
+    .content .text {
+        h3 {
+            font-size: 36px;
+        }
+
+        p {
+            font-size: 20px;
+        }
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .content .desc,
+    .content .text {
+        h3 {
+            font-size: 30px;
+        }
+
+        p {
+            font-size: 18px;
+        }
+    }
 }
