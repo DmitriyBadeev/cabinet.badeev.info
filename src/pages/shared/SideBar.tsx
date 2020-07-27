@@ -5,7 +5,15 @@ import { Center } from "common-styles"
 import styled from "styled-components"
 import { observer } from "mobx-react"
 import useStore from "store/useStore"
-import { UserOutlined, AppstoreOutlined, PieChartOutlined, LineChartOutlined, ToolOutlined } from "@ant-design/icons"
+import {
+    UserOutlined,
+    AppstoreOutlined,
+    PieChartOutlined,
+    LineChartOutlined,
+    ToolOutlined,
+    ArrowLeftOutlined,
+    ArrowRightOutlined,
+} from "@ant-design/icons"
 import { Link, useLocation } from "react-router-dom"
 
 const { Sider } = Layout
@@ -25,6 +33,14 @@ const StyledSider = styled(Sider)`
     position: fixed;
     height: 100vh;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+`
+
+const WrapperTrigger = styled.div`
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    &:hover {
+        color: ${(props) => props.theme.primary};
+        background: #f0f7ff;
+    }
 `
 
 const SideBar: React.FC = observer(() => {
@@ -62,6 +78,17 @@ const SideBar: React.FC = observer(() => {
             onCollapse={() => NavStore.toggleMenu()}
             collapsed={NavStore.isMenuCollapsed}
             theme="light"
+            trigger={
+                NavStore.isMenuCollapsed ? (
+                    <WrapperTrigger>
+                        <ArrowRightOutlined style={{ fontSize: "17px" }} />
+                    </WrapperTrigger>
+                ) : (
+                    <WrapperTrigger>
+                        <ArrowLeftOutlined />
+                    </WrapperTrigger>
+                )
+            }
         >
             <LogoWrapper>
                 <Logo isSmall={NavStore.isMenuCollapsed} />

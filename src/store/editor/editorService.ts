@@ -11,7 +11,7 @@ export enum BlockTypes {
 }
 
 export default class EditorService {
-    @observable blocks: IBlock[] = [tblock1, tblock2]
+    @observable blocks: IBlock[] = []
     @observable currentBlock: IBlock | null = null
 
     blockTypes = [BlockTypes.Text, BlockTypes.Image, BlockTypes.Styles, BlockTypes.Video, BlockTypes.Custom]
@@ -57,15 +57,3 @@ export default class EditorService {
                 </div>`
     }
 }
-
-const tblock1 = new TextBlock("Предисловие", 0)
-    .addHeader("Предисловие")
-    .addParagraph(
-        "Это набор базовых установок и принципов, которые являются основой моих убеждений и взглядов на жизнь. Используется для облегчения принятия решений, а также для вынесения своих вердиктов по поводу любых событий."
-    )
-
-const tblock2 = new TextBlock("Преамбула", 1)
-    .addHeader("Преамбула")
-    .addParagraph(
-        "Я против любого насилия, против любых убийств, против любых войн. Всегда ставлю жизнь человека на первое место."
-    )

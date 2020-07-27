@@ -1,0 +1,98 @@
+query works {
+    works {
+        nodes {
+            id
+            title
+            date
+        }
+    }
+}
+
+query workById($id: Int!) {
+    workById(id: $id) {
+        id
+        title
+        shortDescription
+        date
+        imgPath
+        html
+        link
+        task
+        authors {
+            id
+            name
+            link
+            role
+        }
+    }
+}
+
+mutation createAuthor($name: String!, $role: String!, $link: String!, $workId: Int!) {
+    createAuthor(inputAuthor: { name: $name, role: $role, link: $link, workId: $workId }) {
+        id
+        name
+    }
+}
+
+mutation deleteAuthor($id: Int!) {
+    deleteAuthor(authorId: $id) {
+        id
+    }
+}
+
+mutation updateWork(
+    $id: Int!
+    $title: String!
+    $shortDescription: String!
+    $imgPath: String!
+    $task: String!
+    $html: String!
+    $date: DateTime!
+    $link: String!
+) {
+    updateWork(
+        inputWork: {
+            id: $id
+            title: $title
+            shortDescription: $shortDescription
+            imgPath: $imgPath
+            task: $task
+            html: $html
+            date: $date
+            link: $link
+        }
+    ) {
+        id
+        title
+    }
+}
+mutation createWork(
+    $title: String!
+    $shortDescription: String!
+    $date: DateTime!
+    $task: String!
+    $imgPath: String!
+    $html: String!
+    $link: String!
+) {
+    createWork(
+        inputWork: {
+            title: $title
+            shortDescription: $shortDescription
+            date: $date
+            task: $task
+            imgPath: $imgPath
+            html: $html
+            link: $link
+        }
+    ) {
+        id
+        title
+    }
+}
+
+mutation deleteWork($id: Int!) {
+    deleteWork(workId: $id) {
+        id
+    }
+}

@@ -56,22 +56,6 @@ const Editor: React.FC = observer(() => {
         onClose: closeForm,
     })
 
-    const getMenu = () => {
-        return (
-            <Menu
-                onClick={(e) => {
-                    EditorService.createBlock(EditorService.blockTypes[Number(e.key)], "Новый блок")
-                    EditorService.openBlock(EditorService.blocks.length - 1)
-                    setFormProps({ isOpen: true, title: "Добавление блока", onClose: closeForm })
-                }}
-            >
-                {EditorService.blockTypes.map((el, i) => (
-                    <Menu.Item key={i}>{el}</Menu.Item>
-                ))}
-            </Menu>
-        )
-    }
-
     const DragHandle = SortableHandle(() => <MenuOutlined style={{ cursor: "move", color: "#999" }} />)
     const SortableItem = SortableElement((props: any) => <tr {...props} />)
     const SortContainer = SortableContainer((props: any) => <tbody {...props} />)
@@ -160,6 +144,24 @@ const Editor: React.FC = observer(() => {
         },
     ]
 
+    const getAddMenu = () => {
+        return (
+            <Menu
+                onClick={(e) => {
+                    EditorService.createBlock(EditorService.blockTypes[Number(e.key)], "Новый блок")
+                    EditorService.openBlock(EditorService.blocks.length - 1)
+                    setFormProps({ isOpen: true, title: "Добавление блока", onClose: closeForm })
+                }}
+            >
+                {EditorService.blockTypes.map((el, i) => (
+                    <Menu.Item key={i}>
+                        <PlusOutlined /> {el}
+                    </Menu.Item>
+                ))}
+            </Menu>
+        )
+    }
+
     return (
         <Row justify="center" gutter={[16, 16]}>
             <Col span={22}>
@@ -182,7 +184,7 @@ const Editor: React.FC = observer(() => {
             </Col>
             <Col span={21}>
                 <Space>
-                    <Dropdown overlay={getMenu()}>
+                    <Dropdown overlay={getAddMenu()}>
                         <Button type="primary">
                             Добавить <DownOutlined />
                         </Button>

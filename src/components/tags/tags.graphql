@@ -1,0 +1,37 @@
+query tagsByWorkId($workId: Int!) {
+    tagsByWorkId(workId: $workId) {
+        id
+        title
+    }
+}
+
+query AllTags {
+    tags {
+        id
+        title
+    }
+}
+
+mutation connect($tagId: Int!, $workId: Int!) {
+    connectTagAndWork(inputTagWork: { tagId: $tagId, workId: $workId }) {
+        id
+    }
+}
+
+mutation disconnect($tagId: Int!, $workId: Int!) {
+    disconnectTagAndWork(inputTagWork: { tagId: $tagId, workId: $workId }) {
+        id
+    }
+}
+
+mutation createTag($title: String!) {
+    createTag(inputTag: { title: $title, description: "" }) {
+        id
+    }
+}
+
+mutation deleteTag($id: Int!) {
+    deleteTag(tagId: $id) {
+        id
+    }
+}

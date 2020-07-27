@@ -28,6 +28,7 @@
         "html-react-parser": "^0.13.0",
         "mobx": "^5.15.4",
         "mobx-react": "^6.2.2",
+        "moment": "^2.27.0",
         "oidc-client": "^1.10.1",
         "react": "^16.13.1",
         "react-copy-to-clipboard": "^5.0.2",

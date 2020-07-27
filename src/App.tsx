@@ -7,6 +7,10 @@ import Shared from "./pages/shared/Shared"
 import { BrowserRouter } from "react-router-dom"
 import { observer } from "mobx-react"
 import useStore from "store/useStore"
+import { ConfigProvider } from "antd"
+
+import "moment/locale/ru"
+import ru_RU from "antd/es/locale/ru_RU"
 
 const client = new ApolloClient({
     uri: "https://api.badeev.info/graphql?",
@@ -34,11 +38,13 @@ const App: React.FC = observer(() => {
     return (
         <ApolloProvider client={client}>
             <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <Shared>
-                        <Routes />
-                    </Shared>
-                </BrowserRouter>
+                <ConfigProvider locale={ru_RU} csp={{ nonce: "badeev.info" }}>
+                    <BrowserRouter>
+                        <Shared>
+                            <Routes />
+                        </Shared>
+                    </BrowserRouter>
+                </ConfigProvider>
             </ThemeProvider>
         </ApolloProvider>
     )

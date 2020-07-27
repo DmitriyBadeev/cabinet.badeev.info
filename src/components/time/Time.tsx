@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { getStringDateAndTime } from "helpers/dateHelpers"
 import { Typography } from "antd"
+import moment from "moment"
 
 const { Text } = Typography
 
@@ -9,9 +9,7 @@ const Time: React.FC = () => {
 
     useEffect(() => {
         const timerId = setInterval(() => {
-            const time = Date.now()
-            const timeToString = getStringDateAndTime(time)
-            setTime(timeToString)
+            setTime(moment().format("DD MMMM YYYY, HH:mm:ss, dddd"))
         }, 500)
 
         return () => clearInterval(timerId)
