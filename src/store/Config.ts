@@ -19,7 +19,7 @@ export const devConfig: UserManagerSettings = {
     redirect_uri: "http://localhost:3000/auth-complete",
     response_type: "code",
     loadUserInfo: true,
-    scope: "openid profile Portfolio.API",
+    scope: "openid profile Portfolio.API Portfolio.Finance.API",
     post_logout_redirect_uri: "http://localhost:3000/signout",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
     automaticSilentRenew: true,
