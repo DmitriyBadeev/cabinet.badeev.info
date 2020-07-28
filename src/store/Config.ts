@@ -6,7 +6,7 @@ export const prodConfig: UserManagerSettings = {
     redirect_uri: "https://cabinet.badeev.info/auth-complete",
     response_type: "code",
     loadUserInfo: true,
-    scope: "openid profile Portfolio.API",
+    scope: "openid profile Portfolio.API Portfolio.Finance.API",
     post_logout_redirect_uri: "https://cabinet.badeev.info/signout",
     userStore: new WebStorageStateStore({ store: window.localStorage }),
     automaticSilentRenew: true,
