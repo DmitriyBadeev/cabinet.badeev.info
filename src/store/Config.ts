@@ -26,5 +26,5 @@ export const devConfig: UserManagerSettings = {
     silent_redirect_uri: "http://localhost:3000/silent.html",
 }
 
-export const YANDEX_TOKEN = "AgAAAAAr7vKQAAaBZ5S-_qh5tEU8kBa1RONuD7c"
+export const YANDEX_TOKEN = "AgAAAAAr7vKQAAaBZ_iF3r1SIk5DodaHmguj9pc"
 export const COUNTER_ID = "65373601"

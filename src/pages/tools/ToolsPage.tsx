@@ -4,6 +4,7 @@ import { Tabs } from "antd"
 import { ContentWrapper } from "common-styles"
 import Typograf from "./Typograf"
 import Symbols from "./Symbols"
+import Tokens from "./Tokens"
 
 const { TabPane } = Tabs
 
@@ -19,6 +20,11 @@ const ToolsPage: React.FC = () => {
                 <TabPane tab="Спецсимволы" key="2">
                     <ContentWrapper>
                         <Symbols />
+                    </ContentWrapper>
+                </TabPane>
+                <TabPane tab="Токены" key="3">
+                    <ContentWrapper>
+                        <Tokens />
                     </ContentWrapper>
                 </TabPane>
             </Tabs>
