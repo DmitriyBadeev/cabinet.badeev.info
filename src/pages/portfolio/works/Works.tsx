@@ -73,7 +73,7 @@ const Works: React.FC = () => {
             align: "center" as "center",
             width: 150,
             colSpan: 0,
-            render: (items, item) => (
+            render: (_items, item) => (
                 <Popconfirm
                     title="Точно удалить?"
                     cancelText="Отмена"

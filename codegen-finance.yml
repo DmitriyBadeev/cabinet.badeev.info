@@ -1,0 +1,12 @@
+schema: https://finance.badeev.info/graphql
+documents: ./finance.graphql
+generates:
+    ./src/finance-types.tsx:
+        config:
+            withHooks: true
+            withComponent: false
+            withHOC: false
+        plugins:
+            - typescript
+            - typescript-operations
+            - typescript-react-apollo

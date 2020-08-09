@@ -44,7 +44,8 @@
         "start": "craco start",
         "build": "craco build",
         "test": "craco test",
-        "generate-types": "graphql-codegen --config ./codegen.yml",
+        "generate-types-api": "graphql-codegen --config ./codegen.yml",
+        "generate-types-finance": "graphql-codegen --config ./codegen-finance.yml",
         "eject": "react-scripts eject"
     },
     "eslintConfig": {

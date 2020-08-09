@@ -26,6 +26,8 @@ const client = new ApolloClient({
 
 const theme = {
     primary: "#407BFF",
+    green: "#75D728",
+    red: "#cf1322",
 }
 
 const App: React.FC = observer(() => {

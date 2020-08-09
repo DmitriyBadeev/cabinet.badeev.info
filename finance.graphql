@@ -1,0 +1,77 @@
+query portfolioReports {
+    allPortfoliosReport {
+        allCost
+        allInvestSum
+        allPaperProfit
+        allPaperProfitPercent
+        allPaymentProfit
+        allPaymentProfitPercent
+        allUserBalance
+    }
+}
+
+query portfolios {
+    portfolios {
+        id
+        name
+    }
+}
+
+query stockReports($portfolioId: Int!) {
+    stockReports(portfolioId: $portfolioId) {
+        name
+        ticket
+        amount
+        price
+        priceChange
+        allPrice
+        boughtPrice
+        paperProfit
+        paperProfitPercent
+        nearestDividend {
+            currencyId
+            paymentValue
+            registryCloseDate
+        }
+        paidDividends
+        updateTime
+    }
+}
+
+query fondReports($portfolioId: Int!) {
+    fondReports(portfolioId: $portfolioId) {
+        name
+        ticket
+        amount
+        price
+        priceChange
+        allPrice
+        boughtPrice
+        paperProfit
+        paperProfitPercent
+        updateTime
+    }
+}
+
+query bondReports($portfolioId: Int!) {
+    bondReports(portfolioId: $portfolioId) {
+        name
+        ticket
+        amount
+        price
+        priceChange
+        allPrice
+        boughtPrice
+        paperProfit
+        paperProfitPercent
+        nearestPayment {
+            currencyId
+            paymentValue
+            registryCloseDate
+        }
+        paidPayments
+        updateTime
+        amortizationDate
+        hasAmortized
+    }
+}
