@@ -21,6 +21,8 @@
         "@types/styled-components": "^5.1.1",
         "antd": "^4.4.2",
         "apollo-boost": "^0.4.9",
+        "apollo-link-context": "^1.0.20",
+        "apollo-link-ws": "^1.0.20",
         "array-move": "^3.0.0",
         "axios": "^0.19.2",
         "craco-less": "^1.17.0",
@@ -38,6 +40,7 @@
         "react-sortable-hoc": "^1.11.0",
         "react-transition-group": "^4.4.1",
         "styled-components": "^5.1.1",
+        "subscriptions-transport-ws": "^0.9.17",
         "typescript": "^3.7.5"
     },
     "scripts": {

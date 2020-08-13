@@ -75,3 +75,23 @@ query bondReports($portfolioId: Int!) {
         hasAmortized
     }
 }
+
+mutation stopUpdate($handleId: String!) {
+    stopUpdate(handlerId: $handleId)
+}
+
+mutation startUpdate {
+    startUpdate
+}
+
+subscription updatePortfoliosReport {
+    onUpdatePortfoliosReport {
+        allCost
+        allInvestSum
+        allPaperProfit
+        allPaperProfitPercent
+        allPaymentProfit
+        allPaymentProfitPercent
+        allUserBalance
+    }
+}
