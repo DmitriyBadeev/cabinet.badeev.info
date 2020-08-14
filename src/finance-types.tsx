@@ -59,7 +59,8 @@ export type Mutations = {
     createPortfolio?: Maybe<OperationResult>
     refillBalance?: Maybe<OperationResult>
     sellAsset?: Maybe<OperationResult>
-    startUpdate?: Maybe<Scalars["String"]>
+    startAssetReportsUpdate?: Maybe<Scalars["String"]>
+    startPortfoliosReportUpdate?: Maybe<Scalars["String"]>
     stopUpdate?: Maybe<Scalars["String"]>
     withdrawalBalance?: Maybe<OperationResult>
 }
@@ -80,6 +81,10 @@ export type MutationsSellAssetArgs = {
     sellAssetInput?: Maybe<SellAssetInput>
 }
 
+export type MutationsStartAssetReportsUpdateArgs = {
+    portfolioId: Scalars["Int"]
+}
+
 export type MutationsStopUpdateArgs = {
     handlerId?: Maybe<Scalars["String"]>
 }
@@ -90,7 +95,10 @@ export type MutationsWithdrawalBalanceArgs = {
 
 export type Subscriptions = {
     __typename?: "Subscriptions"
+    onUpdateBondReports?: Maybe<Array<Maybe<BondReport>>>
+    onUpdateFondReports?: Maybe<Array<Maybe<FondReport>>>
     onUpdatePortfoliosReport?: Maybe<AllPortfoliosReport>
+    onUpdateStockReports?: Maybe<Array<Maybe<StockReport>>>
 }
 
 export type Portfolio = {
@@ -378,9 +386,18 @@ export type StopUpdateMutationVariables = Exact<{
 
 export type StopUpdateMutation = { __typename?: "Mutations" } & Pick<Mutations, "stopUpdate">
 
-export type StartUpdateMutationVariables = Exact<{ [key: string]: never }>
+export type StartPortfoliosReportUpdateMutationVariables = Exact<{ [key: string]: never }>
 
-export type StartUpdateMutation = { __typename?: "Mutations" } & Pick<Mutations, "startUpdate">
+export type StartPortfoliosReportUpdateMutation = { __typename?: "Mutations" } & Pick<
+    Mutations,
+    "startPortfoliosReportUpdate"
+>
+
+export type StartAssetReportsUpdateMutationVariables = Exact<{
+    portfolioId: Scalars["Int"]
+}>
+
+export type StartAssetReportsUpdateMutation = { __typename?: "Mutations" } & Pick<Mutations, "startAssetReportsUpdate">
 
 export type UpdatePortfoliosReportSubscriptionVariables = Exact<{ [key: string]: never }>
 
@@ -395,6 +412,96 @@ export type UpdatePortfoliosReportSubscription = { __typename?: "Subscriptions" 
             | "allPaymentProfit"
             | "allPaymentProfitPercent"
             | "allUserBalance"
+        >
+    >
+}
+
+export type UpdateStockReportsSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type UpdateStockReportsSubscription = { __typename?: "Subscriptions" } & {
+    onUpdateStockReports?: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "StockReport" } & Pick<
+                    StockReport,
+                    | "name"
+                    | "ticket"
+                    | "amount"
+                    | "price"
+                    | "priceChange"
+                    | "allPrice"
+                    | "boughtPrice"
+                    | "paperProfit"
+                    | "paperProfitPercent"
+                    | "paidDividends"
+                    | "updateTime"
+                > & {
+                        nearestDividend?: Maybe<
+                            { __typename?: "PaymentData" } & Pick<
+                                PaymentData,
+                                "currencyId" | "paymentValue" | "registryCloseDate"
+                            >
+                        >
+                    }
+            >
+        >
+    >
+}
+
+export type UpdateFondReportsSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type UpdateFondReportsSubscription = { __typename?: "Subscriptions" } & {
+    onUpdateFondReports?: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "FondReport" } & Pick<
+                    FondReport,
+                    | "name"
+                    | "ticket"
+                    | "amount"
+                    | "price"
+                    | "priceChange"
+                    | "allPrice"
+                    | "boughtPrice"
+                    | "paperProfit"
+                    | "paperProfitPercent"
+                    | "updateTime"
+                >
+            >
+        >
+    >
+}
+
+export type UpdateBondReportsSubscriptionVariables = Exact<{ [key: string]: never }>
+
+export type UpdateBondReportsSubscription = { __typename?: "Subscriptions" } & {
+    onUpdateBondReports?: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "BondReport" } & Pick<
+                    BondReport,
+                    | "name"
+                    | "ticket"
+                    | "amount"
+                    | "price"
+                    | "priceChange"
+                    | "allPrice"
+                    | "boughtPrice"
+                    | "paperProfit"
+                    | "paperProfitPercent"
+                    | "paidPayments"
+                    | "updateTime"
+                    | "amortizationDate"
+                    | "hasAmortized"
+                > & {
+                        nearestPayment?: Maybe<
+                            { __typename?: "PaymentData" } & Pick<
+                                PaymentData,
+                                "currencyId" | "paymentValue" | "registryCloseDate"
+                            >
+                        >
+                    }
+            >
         >
     >
 }
@@ -647,7 +754,6 @@ export const StopUpdateDocument = gql`
         stopUpdate(handlerId: $handleId)
     }
 `
-
 export type StopUpdateMutationFn = ApolloReactCommon.MutationFunction<StopUpdateMutation, StopUpdateMutationVariables>
 
 /**
@@ -681,45 +787,94 @@ export type StopUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<
     StopUpdateMutation,
     StopUpdateMutationVariables
 >
-export const StartUpdateDocument = gql`
-    mutation startUpdate {
-        startUpdate
+export const StartPortfoliosReportUpdateDocument = gql`
+    mutation startPortfoliosReportUpdate {
+        startPortfoliosReportUpdate
     }
 `
-export type StartUpdateMutationFn = ApolloReactCommon.MutationFunction<
-    StartUpdateMutation,
-    StartUpdateMutationVariables
+export type StartPortfoliosReportUpdateMutationFn = ApolloReactCommon.MutationFunction<
+    StartPortfoliosReportUpdateMutation,
+    StartPortfoliosReportUpdateMutationVariables
 >
 
 /**
- * __useStartUpdateMutation__
+ * __useStartPortfoliosReportUpdateMutation__
  *
- * To run a mutation, you first call `useStartUpdateMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useStartUpdateMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useStartPortfoliosReportUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useStartPortfoliosReportUpdateMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [startUpdateMutation, { data, loading, error }] = useStartUpdateMutation({
+ * const [startPortfoliosReportUpdateMutation, { data, loading, error }] = useStartPortfoliosReportUpdateMutation({
  *   variables: {
  *   },
  * });
  */
-export function useStartUpdateMutation(
-    baseOptions?: ApolloReactHooks.MutationHookOptions<StartUpdateMutation, StartUpdateMutationVariables>
+export function useStartPortfoliosReportUpdateMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<
+        StartPortfoliosReportUpdateMutation,
+        StartPortfoliosReportUpdateMutationVariables
+    >
 ) {
-    return ApolloReactHooks.useMutation<StartUpdateMutation, StartUpdateMutationVariables>(
-        StartUpdateDocument,
+    return ApolloReactHooks.useMutation<
+        StartPortfoliosReportUpdateMutation,
+        StartPortfoliosReportUpdateMutationVariables
+    >(StartPortfoliosReportUpdateDocument, baseOptions)
+}
+export type StartPortfoliosReportUpdateMutationHookResult = ReturnType<typeof useStartPortfoliosReportUpdateMutation>
+export type StartPortfoliosReportUpdateMutationResult = ApolloReactCommon.MutationResult<
+    StartPortfoliosReportUpdateMutation
+>
+export type StartPortfoliosReportUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    StartPortfoliosReportUpdateMutation,
+    StartPortfoliosReportUpdateMutationVariables
+>
+export const StartAssetReportsUpdateDocument = gql`
+    mutation startAssetReportsUpdate($portfolioId: Int!) {
+        startAssetReportsUpdate(portfolioId: $portfolioId)
+    }
+`
+export type StartAssetReportsUpdateMutationFn = ApolloReactCommon.MutationFunction<
+    StartAssetReportsUpdateMutation,
+    StartAssetReportsUpdateMutationVariables
+>
+
+/**
+ * __useStartAssetReportsUpdateMutation__
+ *
+ * To run a mutation, you first call `useStartAssetReportsUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useStartAssetReportsUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [startAssetReportsUpdateMutation, { data, loading, error }] = useStartAssetReportsUpdateMutation({
+ *   variables: {
+ *      portfolioId: // value for 'portfolioId'
+ *   },
+ * });
+ */
+export function useStartAssetReportsUpdateMutation(
+    baseOptions?: ApolloReactHooks.MutationHookOptions<
+        StartAssetReportsUpdateMutation,
+        StartAssetReportsUpdateMutationVariables
+    >
+) {
+    return ApolloReactHooks.useMutation<StartAssetReportsUpdateMutation, StartAssetReportsUpdateMutationVariables>(
+        StartAssetReportsUpdateDocument,
         baseOptions
     )
 }
-export type StartUpdateMutationHookResult = ReturnType<typeof useStartUpdateMutation>
-export type StartUpdateMutationResult = ApolloReactCommon.MutationResult<StartUpdateMutation>
-export type StartUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<
-    StartUpdateMutation,
-    StartUpdateMutationVariables
+export type StartAssetReportsUpdateMutationHookResult = ReturnType<typeof useStartAssetReportsUpdateMutation>
+export type StartAssetReportsUpdateMutationResult = ApolloReactCommon.MutationResult<StartAssetReportsUpdateMutation>
+export type StartAssetReportsUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<
+    StartAssetReportsUpdateMutation,
+    StartAssetReportsUpdateMutationVariables
 >
 export const UpdatePortfoliosReportDocument = gql`
     subscription updatePortfoliosReport {
@@ -765,3 +920,152 @@ export type UpdatePortfoliosReportSubscriptionHookResult = ReturnType<typeof use
 export type UpdatePortfoliosReportSubscriptionResult = ApolloReactCommon.SubscriptionResult<
     UpdatePortfoliosReportSubscription
 >
+export const UpdateStockReportsDocument = gql`
+    subscription updateStockReports {
+        onUpdateStockReports {
+            name
+            ticket
+            amount
+            price
+            priceChange
+            allPrice
+            boughtPrice
+            paperProfit
+            paperProfitPercent
+            nearestDividend {
+                currencyId
+                paymentValue
+                registryCloseDate
+            }
+            paidDividends
+            updateTime
+        }
+    }
+`
+
+/**
+ * __useUpdateStockReportsSubscription__
+ *
+ * To run a query within a React component, call `useUpdateStockReportsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useUpdateStockReportsSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUpdateStockReportsSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUpdateStockReportsSubscription(
+    baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
+        UpdateStockReportsSubscription,
+        UpdateStockReportsSubscriptionVariables
+    >
+) {
+    return ApolloReactHooks.useSubscription<UpdateStockReportsSubscription, UpdateStockReportsSubscriptionVariables>(
+        UpdateStockReportsDocument,
+        baseOptions
+    )
+}
+export type UpdateStockReportsSubscriptionHookResult = ReturnType<typeof useUpdateStockReportsSubscription>
+export type UpdateStockReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateStockReportsSubscription>
+export const UpdateFondReportsDocument = gql`
+    subscription updateFondReports {
+        onUpdateFondReports {
+            name
+            ticket
+            amount
+            price
+            priceChange
+            allPrice
+            boughtPrice
+            paperProfit
+            paperProfitPercent
+            updateTime
+        }
+    }
+`
+
+/**
+ * __useUpdateFondReportsSubscription__
+ *
+ * To run a query within a React component, call `useUpdateFondReportsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useUpdateFondReportsSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUpdateFondReportsSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUpdateFondReportsSubscription(
+    baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
+        UpdateFondReportsSubscription,
+        UpdateFondReportsSubscriptionVariables
+    >
+) {
+    return ApolloReactHooks.useSubscription<UpdateFondReportsSubscription, UpdateFondReportsSubscriptionVariables>(
+        UpdateFondReportsDocument,
+        baseOptions
+    )
+}
+export type UpdateFondReportsSubscriptionHookResult = ReturnType<typeof useUpdateFondReportsSubscription>
+export type UpdateFondReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateFondReportsSubscription>
+export const UpdateBondReportsDocument = gql`
+    subscription updateBondReports {
+        onUpdateBondReports {
+            name
+            ticket
+            amount
+            price
+            priceChange
+            allPrice
+            boughtPrice
+            paperProfit
+            paperProfitPercent
+            nearestPayment {
+                currencyId
+                paymentValue
+                registryCloseDate
+            }
+            paidPayments
+            updateTime
+            amortizationDate
+            hasAmortized
+        }
+    }
+`
+
+/**
+ * __useUpdateBondReportsSubscription__
+ *
+ * To run a query within a React component, call `useUpdateBondReportsSubscription` and pass it any options that fit your needs.
+ * When your component renders, `useUpdateBondReportsSubscription` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useUpdateBondReportsSubscription({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useUpdateBondReportsSubscription(
+    baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
+        UpdateBondReportsSubscription,
+        UpdateBondReportsSubscriptionVariables
+    >
+) {
+    return ApolloReactHooks.useSubscription<UpdateBondReportsSubscription, UpdateBondReportsSubscriptionVariables>(
+        UpdateBondReportsDocument,
+        baseOptions
+    )
+}
+export type UpdateBondReportsSubscriptionHookResult = ReturnType<typeof useUpdateBondReportsSubscription>
+export type UpdateBondReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateBondReportsSubscription>

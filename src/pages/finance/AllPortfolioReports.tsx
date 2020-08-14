@@ -1,7 +1,11 @@
 import React, { CSSProperties, useEffect } from "react"
 import { Row, Col, message, Statistic, Space, Divider, Button } from "antd"
 import { ContentWrapper } from "common-styles"
-import { usePortfolioReportsQuery, useUpdatePortfoliosReportSubscription, useStartUpdateMutation } from "finance-types"
+import {
+    usePortfolioReportsQuery,
+    useUpdatePortfoliosReportSubscription,
+    useStartPortfoliosReportUpdateMutation,
+} from "finance-types"
 import styled from "styled-components"
 import { toCurrency, toPercent } from "helpers/financeHelpers"
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons"
@@ -33,32 +37,21 @@ const AllPortfolioReports: React.FC = () => {
     const { data, loading, error } = usePortfolioReportsQuery()
 
     const UpdatePortfolios = useUpdatePortfoliosReportSubscription()
-
-    const [startUpdateMutation, startUpdateMutationData] = useStartUpdateMutation()
-    //const [stopUpdateMutation, stopUpdateMutationData] = useStopUpdateMutation()
+    const [startUpdateMutation, startUpdateMutationData] = useStartPortfoliosReportUpdateMutation()
 
     useEffect(() => {
         startUpdateMutation()
-
-        // return () => {
-        //     stopUpdateMutation({
-        //         variables: {
-        //             handleId: startUpdateMutationData.data?.startUpdate || "",
-        //         },
-        //     })
-        // }
     }, [startUpdateMutation])
 
     if (error) message.error(error.message)
     if (UpdatePortfolios.error) message.error(UpdatePortfolios.error.message)
-    //if (stopUpdateMutationData.error) message.error(stopUpdateMutationData.error.message)
     if (startUpdateMutationData.error)
         message.error(`Не удалось запустить обновление: ${startUpdateMutationData.error.message}`)
 
     const report = UpdatePortfolios.data?.onUpdatePortfoliosReport ?? data?.allPortfoliosReport
 
     const getStatStyle: (value: number | undefined) => CSSProperties = (value: number | undefined) => {
-        if (value && value > 0) {
+        if (value && value >= 0) {
             return {
                 color: "#75D728",
                 fontWeight: 600,

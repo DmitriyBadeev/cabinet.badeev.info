@@ -80,8 +80,12 @@ mutation stopUpdate($handleId: String!) {
     stopUpdate(handlerId: $handleId)
 }
 
-mutation startUpdate {
-    startUpdate
+mutation startPortfoliosReportUpdate {
+    startPortfoliosReportUpdate
+}
+
+mutation startAssetReportsUpdate($portfolioId: Int!) {
+    startAssetReportsUpdate(portfolioId: $portfolioId)
 }
 
 subscription updatePortfoliosReport {
@@ -93,5 +97,64 @@ subscription updatePortfoliosReport {
         allPaymentProfit
         allPaymentProfitPercent
         allUserBalance
+    }
+}
+
+subscription updateStockReports {
+    onUpdateStockReports {
+        name
+        ticket
+        amount
+        price
+        priceChange
+        allPrice
+        boughtPrice
+        paperProfit
+        paperProfitPercent
+        nearestDividend {
+            currencyId
+            paymentValue
+            registryCloseDate
+        }
+        paidDividends
+        updateTime
+    }
+}
+
+subscription updateFondReports {
+    onUpdateFondReports {
+        name
+        ticket
+        amount
+        price
+        priceChange
+        allPrice
+        boughtPrice
+        paperProfit
+        paperProfitPercent
+        updateTime
+    }
+}
+
+subscription updateBondReports {
+    onUpdateBondReports {
+        name
+        ticket
+        amount
+        price
+        priceChange
+        allPrice
+        boughtPrice
+        paperProfit
+        paperProfitPercent
+        nearestPayment {
+            currencyId
+            paymentValue
+            registryCloseDate
+        }
+        paidPayments
+        updateTime
+        amortizationDate
+        hasAmortized
     }
 }

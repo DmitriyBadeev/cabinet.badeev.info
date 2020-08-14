@@ -1,20 +1,16 @@
 import React from "react"
-import LocalLoading from "./LocalLoading"
-import { Center } from "common-styles"
+import { Skeleton } from "antd"
 
 type loadingProp = {
     loading: boolean
 }
 
 const LoadingHOC: React.FC<loadingProp> = (props) => {
-    if (props.loading)
-        return (
-            <Center>
-                <LocalLoading />
-            </Center>
-        )
-
-    return <>{props.children}</>
+    return (
+        <Skeleton active={true} loading={props.loading} paragraph={{ rows: 2 }}>
+            {props.children}
+        </Skeleton>
+    )
 }
 
 export default LoadingHOC

@@ -1,7 +1,15 @@
-import React from "react"
+import React, { useEffect } from "react"
 import FadePage from "components/fade/FadePage"
 import { ContentWrapper } from "common-styles"
-import { useStockReportsQuery, useFondReportsQuery, useBondReportsQuery } from "finance-types"
+import {
+    useStockReportsQuery,
+    useFondReportsQuery,
+    useBondReportsQuery,
+    useStartAssetReportsUpdateMutation,
+    useUpdateStockReportsSubscription,
+    useUpdateBondReportsSubscription,
+    useUpdateFondReportsSubscription,
+} from "finance-types"
 import { message, Table, Typography, Row, Col } from "antd"
 import { stockColumns, fondColumns, bondColumns } from "./TableColumns"
 
@@ -30,34 +38,54 @@ const PortfolioReport: React.FC<propTypes> = (props) => {
         },
     })
 
+    const UpdateStocks = useUpdateStockReportsSubscription()
+    const UpdateFonds = useUpdateFondReportsSubscription()
+    const UpdateBonds = useUpdateBondReportsSubscription()
+    const [startUpdateMutation, startUpdateMutationData] = useStartAssetReportsUpdateMutation({
+        variables: {
+            portfolioId: props.portfolioId,
+        },
+    })
+
+    useEffect(() => {
+        startUpdateMutation()
+    }, [startUpdateMutation])
+
     if (stockPayloads.error) message.error(stockPayloads.error.message)
     if (fondPayloads.error) message.error(fondPayloads.error.message)
     if (bondPayloads.error) message.error(bondPayloads.error.message)
 
-    const stockReports = stockPayloads.data?.stockReports?.map((s, i) => {
+    if (startUpdateMutationData.error)
+        message.error(`Не удалось запустить обновление: ${startUpdateMutationData.error.message}`)
+
+    if (UpdateStocks.error) message.error(UpdateStocks.error.message)
+    if (UpdateFonds.error) message.error(UpdateFonds.error.message)
+    if (UpdateBonds.error) message.error(UpdateBonds.error.message)
+
+    const stockReportsData = UpdateStocks.data?.onUpdateStockReports ?? stockPayloads.data?.stockReports
+    const fondReportsData = UpdateFonds.data?.onUpdateFondReports ?? fondPayloads.data?.fondReports
+    const bondReportsData = UpdateBonds.data?.onUpdateBondReports ?? bondPayloads.data?.bondReports
+
+    const stockReports = stockReportsData?.map((s, i) => {
         return {
             key: i,
             ...s,
         }
     })
 
-    const fondReports = fondPayloads.data?.fondReports?.map((s, i) => {
+    const fondReports = fondReportsData?.map((s, i) => {
         return {
             key: i,
             ...s,
         }
     })
 
-    const bondReports = bondPayloads.data?.bondReports?.map((s, i) => {
+    const bondReports = bondReportsData?.map((s, i) => {
         return {
             key: i,
             ...s,
         }
     })
-
-    console.log(stockReports)
-    console.log(fondReports)
-    console.log(bondReports)
 
     return (
         <FadePage>
@@ -70,7 +98,7 @@ const PortfolioReport: React.FC<propTypes> = (props) => {
                             dataSource={stockReports}
                             pagination={false}
                             title={() => <Title level={4}>Акции</Title>}
-                            scroll={{ x: 1450 }}
+                            scroll={{ x: 1460 }}
                         />
                     </Col>
                     <Col>
@@ -80,7 +108,7 @@ const PortfolioReport: React.FC<propTypes> = (props) => {
                             dataSource={fondReports}
                             pagination={false}
                             title={() => <Title level={4}>Фонды</Title>}
-                            scroll={{ x: 1190 }}
+                            scroll={{ x: 1210 }}
                         />
                     </Col>
                     <Col>
@@ -90,7 +118,7 @@ const PortfolioReport: React.FC<propTypes> = (props) => {
                             dataSource={bondReports}
                             pagination={false}
                             title={() => <Title level={4}>Облигации</Title>}
-                            scroll={{ x: 1630 }}
+                            scroll={{ x: 1640 }}
                         />
                     </Col>
                 </Row>

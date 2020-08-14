@@ -9,7 +9,7 @@ type IndexProp = {
 }
 
 const ColorIndex = styled.span<IndexProp>`
-    color: ${(props) => (props.index > 0 ? props.theme.green : props.theme.red)};
+    color: ${(props) => (props.index >= 0 ? props.theme.green : props.theme.red)};
 
     &::before {
         content: ${(props) => (props.index > 0 ? `"+"` : `""`)};
@@ -36,6 +36,7 @@ export const stockColumns = [
         title: "Кол-во",
         width: 100,
         dataIndex: "amount",
+        sorter: (a: any, b: any) => a.amount - b.amount,
     },
     {
         key: "price",
@@ -44,6 +45,7 @@ export const stockColumns = [
         align: "center" as "center",
         colSpan: 2,
         width: 120,
+        sorter: (a: any, b: any) => a.price - b.price,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.price)}</>
         },
@@ -61,7 +63,8 @@ export const stockColumns = [
         key: "allPrice",
         title: "Общая цена",
         dataIndex: "allPrice",
-        width: 130,
+        width: 140,
+        sorter: (a: any, b: any) => a.allPrice - b.allPrice,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.allPrice)}</>
         },
@@ -71,6 +74,7 @@ export const stockColumns = [
         title: "Потрачено",
         width: 130,
         dataIndex: "boughtPrice",
+        sorter: (a: any, b: any) => a.boughtPrice - b.boughtPrice,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.boughtPrice)}</>
         },
@@ -82,6 +86,7 @@ export const stockColumns = [
         width: 130,
         align: "center" as "center",
         colSpan: 2,
+        sorter: (a: any, b: any) => a.paperProfit - b.paperProfit,
         render: (_items: any, item: any) => {
             return <ColorIndex index={item.paperProfit}>{toCurrency(item.paperProfit)}</ColorIndex>
         },
@@ -100,6 +105,7 @@ export const stockColumns = [
         title: "Дивиденды",
         width: 130,
         dataIndex: "paidDividends",
+        sorter: (a: any, b: any) => a.paidDividends - b.paidDividends,
         render: (_items: any, item: any) => toCurrency(item.paidDividends),
     },
     {
@@ -152,8 +158,9 @@ export const fondColumns = [
     {
         key: "amount",
         title: "Кол-во",
-        width: 100,
+        width: 110,
         dataIndex: "amount",
+        sorter: (a: any, b: any) => a.amount - b.amount,
     },
     {
         key: "price",
@@ -162,6 +169,7 @@ export const fondColumns = [
         align: "center" as "center",
         colSpan: 2,
         width: 120,
+        sorter: (a: any, b: any) => a.price - b.price,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.price)}</>
         },
@@ -179,7 +187,8 @@ export const fondColumns = [
         key: "allPrice",
         title: "Общая цена",
         dataIndex: "allPrice",
-        width: 130,
+        width: 140,
+        sorter: (a: any, b: any) => a.allPrice - b.allPrice,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.allPrice)}</>
         },
@@ -189,6 +198,7 @@ export const fondColumns = [
         title: "Потрачено",
         width: 130,
         dataIndex: "boughtPrice",
+        sorter: (a: any, b: any) => a.boughtPrice - b.boughtPrice,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.boughtPrice)}</>
         },
@@ -200,6 +210,7 @@ export const fondColumns = [
         width: 130,
         align: "center" as "center",
         colSpan: 2,
+        sorter: (a: any, b: any) => a.paperProfit - b.paperProfit,
         render: (_items: any, item: any) => {
             return <ColorIndex index={item.paperProfit}>{toCurrency(item.paperProfit)}</ColorIndex>
         },
@@ -241,6 +252,7 @@ export const bondColumns = [
         title: "Кол-во",
         width: 100,
         dataIndex: "amount",
+        sorter: (a: any, b: any) => a.amount - b.amount,
     },
     {
         key: "price",
@@ -249,6 +261,7 @@ export const bondColumns = [
         align: "center" as "center",
         colSpan: 2,
         width: 120,
+        sorter: (a: any, b: any) => a.price - b.price,
         render: (_items: any, item: any) => {
             return <>{toPercent(item.price)}</>
         },
@@ -266,7 +279,8 @@ export const bondColumns = [
         key: "allPrice",
         title: "Общая цена",
         dataIndex: "allPrice",
-        width: 130,
+        width: 140,
+        sorter: (a: any, b: any) => a.allPrice - b.allPrice,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.allPrice)}</>
         },
@@ -276,6 +290,7 @@ export const bondColumns = [
         title: "Потрачено",
         width: 130,
         dataIndex: "boughtPrice",
+        sorter: (a: any, b: any) => a.boughtPrice - b.boughtPrice,
         render: (_items: any, item: any) => {
             return <>{toCurrency(item.boughtPrice)}</>
         },
@@ -287,6 +302,7 @@ export const bondColumns = [
         width: 130,
         align: "center" as "center",
         colSpan: 2,
+        sorter: (a: any, b: any) => a.paperProfit - b.paperProfit,
         render: (_items: any, item: any) => {
             return <ColorIndex index={item.paperProfit}>{toCurrency(item.paperProfit)}</ColorIndex>
         },
@@ -305,6 +321,7 @@ export const bondColumns = [
         title: "Выплачено",
         width: 130,
         dataIndex: "paidPayments",
+        sorter: (a: any, b: any) => a.paidDividends - b.paidDividends,
         render: (_items: any, item: any) => toCurrency(item.paidPayments),
     },
     {
