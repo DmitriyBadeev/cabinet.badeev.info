@@ -84,8 +84,8 @@ mutation startPortfoliosReportUpdate {
     startPortfoliosReportUpdate
 }
 
-mutation startAssetReportsUpdate($portfolioId: Int!) {
-    startAssetReportsUpdate(portfolioId: $portfolioId)
+mutation startAssetReportsUpdate {
+    startAssetReportsUpdate
 }
 
 subscription updatePortfoliosReport {
@@ -100,8 +100,8 @@ subscription updatePortfoliosReport {
     }
 }
 
-subscription updateStockReports {
-    onUpdateStockReports {
+subscription updateStockReports($portfolioId: Int!) {
+    onUpdateStockReports(portfolioId: $portfolioId) {
         name
         ticket
         amount
@@ -121,8 +121,8 @@ subscription updateStockReports {
     }
 }
 
-subscription updateFondReports {
-    onUpdateFondReports {
+subscription updateFondReports($portfolioId: Int!) {
+    onUpdateFondReports(portfolioId: $portfolioId) {
         name
         ticket
         amount
@@ -136,8 +136,8 @@ subscription updateFondReports {
     }
 }
 
-subscription updateBondReports {
-    onUpdateBondReports {
+subscription updateBondReports($portfolioId: Int!) {
+    onUpdateBondReports(portfolioId: $portfolioId) {
         name
         ticket
         amount

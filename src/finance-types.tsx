@@ -1,524 +1,466 @@
-import gql from "graphql-tag"
-import * as ApolloReactCommon from "@apollo/react-common"
-import * as ApolloReactHooks from "@apollo/react-hooks"
-export type Maybe<T> = T | null
-export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] }
+import gql from 'graphql-tag';
+import * as ApolloReactCommon from '@apollo/react-common';
+import * as ApolloReactHooks from '@apollo/react-hooks';
+export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: any }> = { [K in keyof T]: T[K] };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-    ID: string
-    String: string
-    Boolean: boolean
-    Int: number
-    Float: number
-    /** The multiplier path scalar represents a valid GraphQL multiplier path string. */
-    MultiplierPath: any
-    /** The `DateTime` scalar represents an ISO-8601 compliant date time type. */
-    DateTime: any
-}
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+  /** The multiplier path scalar represents a valid GraphQL multiplier path string. */
+  MultiplierPath: any;
+  /** The `DateTime` scalar represents an ISO-8601 compliant date time type. */
+  DateTime: any;
+};
 
 export type Queries = {
-    __typename?: "Queries"
-    allAssetOperations?: Maybe<Array<Maybe<AssetOperation>>>
-    allCurrencyOperations?: Maybe<Array<Maybe<CurrencyOperation>>>
-    allPortfoliosReport?: Maybe<AllPortfoliosReport>
-    assetActions?: Maybe<Array<Maybe<AssetAction>>>
-    assetTypes?: Maybe<Array<Maybe<AssetType>>>
-    bondReports?: Maybe<Array<Maybe<BondReport>>>
-    currencyActions?: Maybe<Array<Maybe<CurrencyAction>>>
-    currentUserBalance: Scalars["Float"]
-    fondReports?: Maybe<Array<Maybe<FondReport>>>
-    portfolios?: Maybe<Array<Maybe<Portfolio>>>
-    secretData?: Maybe<Scalars["String"]>
-    stockReports?: Maybe<Array<Maybe<StockReport>>>
-    test?: Maybe<Scalars["String"]>
-}
+  __typename?: 'Queries';
+  allAssetOperations?: Maybe<Array<Maybe<AssetOperation>>>;
+  allAssetPricesReport?: Maybe<AssetPrices>;
+  allCurrencyOperations?: Maybe<Array<Maybe<CurrencyOperation>>>;
+  allPortfoliosReport?: Maybe<AllPortfoliosReport>;
+  assetActions?: Maybe<Array<Maybe<AssetAction>>>;
+  assetTypes?: Maybe<Array<Maybe<AssetType>>>;
+  bondReports?: Maybe<Array<Maybe<BondReport>>>;
+  currencyActions?: Maybe<Array<Maybe<CurrencyAction>>>;
+  currentUserBalance: Scalars['Float'];
+  fondReports?: Maybe<Array<Maybe<FondReport>>>;
+  portfolios?: Maybe<Array<Maybe<Portfolio>>>;
+  secretData?: Maybe<Scalars['String']>;
+  stockReports?: Maybe<Array<Maybe<StockReport>>>;
+  test?: Maybe<Scalars['String']>;
+};
+
 
 export type QueriesAllAssetOperationsArgs = {
-    portfolioId: Scalars["Int"]
-}
+  portfolioId: Scalars['Int'];
+};
+
 
 export type QueriesAllCurrencyOperationsArgs = {
-    portfolioId: Scalars["Int"]
-}
+  portfolioId: Scalars['Int'];
+};
+
 
 export type QueriesBondReportsArgs = {
-    portfolioId: Scalars["Int"]
-}
+  portfolioId: Scalars['Int'];
+};
+
 
 export type QueriesFondReportsArgs = {
-    portfolioId: Scalars["Int"]
-}
+  portfolioId: Scalars['Int'];
+};
+
 
 export type QueriesStockReportsArgs = {
-    portfolioId: Scalars["Int"]
-}
+  portfolioId: Scalars['Int'];
+};
 
 export type Mutations = {
-    __typename?: "Mutations"
-    buyAsset?: Maybe<OperationResult>
-    createPortfolio?: Maybe<OperationResult>
-    refillBalance?: Maybe<OperationResult>
-    sellAsset?: Maybe<OperationResult>
-    startAssetReportsUpdate?: Maybe<Scalars["String"]>
-    startPortfoliosReportUpdate?: Maybe<Scalars["String"]>
-    stopUpdate?: Maybe<Scalars["String"]>
-    withdrawalBalance?: Maybe<OperationResult>
-}
+  __typename?: 'Mutations';
+  buyAsset?: Maybe<OperationResult>;
+  createPortfolio?: Maybe<OperationResult>;
+  refillBalance?: Maybe<OperationResult>;
+  sellAsset?: Maybe<OperationResult>;
+  startAssetReportsUpdate?: Maybe<Scalars['String']>;
+  startPortfoliosReportUpdate?: Maybe<Scalars['String']>;
+  stopUpdate?: Maybe<Scalars['String']>;
+  withdrawalBalance?: Maybe<OperationResult>;
+};
+
 
 export type MutationsBuyAssetArgs = {
-    buyAssetInput?: Maybe<BuyAssetInput>
-}
+  buyAssetInput?: Maybe<BuyAssetInput>;
+};
+
 
 export type MutationsCreatePortfolioArgs = {
-    name?: Maybe<Scalars["String"]>
-}
+  name?: Maybe<Scalars['String']>;
+};
+
 
 export type MutationsRefillBalanceArgs = {
-    refillBalanceInput?: Maybe<RefillBalanceInput>
-}
+  refillBalanceInput?: Maybe<RefillBalanceInput>;
+};
+
 
 export type MutationsSellAssetArgs = {
-    sellAssetInput?: Maybe<SellAssetInput>
-}
+  sellAssetInput?: Maybe<SellAssetInput>;
+};
 
-export type MutationsStartAssetReportsUpdateArgs = {
-    portfolioId: Scalars["Int"]
-}
 
 export type MutationsStopUpdateArgs = {
-    handlerId?: Maybe<Scalars["String"]>
-}
+  handlerId?: Maybe<Scalars['String']>;
+};
+
 
 export type MutationsWithdrawalBalanceArgs = {
-    withdrawalBalanceInput?: Maybe<WithdrawalBalanceInput>
-}
+  withdrawalBalanceInput?: Maybe<WithdrawalBalanceInput>;
+};
 
 export type Subscriptions = {
-    __typename?: "Subscriptions"
-    onUpdateBondReports?: Maybe<Array<Maybe<BondReport>>>
-    onUpdateFondReports?: Maybe<Array<Maybe<FondReport>>>
-    onUpdatePortfoliosReport?: Maybe<AllPortfoliosReport>
-    onUpdateStockReports?: Maybe<Array<Maybe<StockReport>>>
-}
+  __typename?: 'Subscriptions';
+  onUpdateBondReports?: Maybe<Array<Maybe<BondReport>>>;
+  onUpdateFondReports?: Maybe<Array<Maybe<FondReport>>>;
+  onUpdatePortfoliosReport?: Maybe<AllPortfoliosReport>;
+  onUpdatePricesReport?: Maybe<AssetPrices>;
+  onUpdateStockReports?: Maybe<Array<Maybe<StockReport>>>;
+};
+
+
+export type SubscriptionsOnUpdateBondReportsArgs = {
+  portfolioId: Scalars['Int'];
+};
+
+
+export type SubscriptionsOnUpdateFondReportsArgs = {
+  portfolioId: Scalars['Int'];
+};
+
+
+export type SubscriptionsOnUpdateStockReportsArgs = {
+  portfolioId: Scalars['Int'];
+};
+
 
 export type Portfolio = {
-    __typename?: "Portfolio"
-    assetOperations?: Maybe<Array<Maybe<AssetOperation>>>
-    id: Scalars["Int"]
-    name?: Maybe<Scalars["String"]>
-    userId: Scalars["Int"]
-}
+  __typename?: 'Portfolio';
+  assetOperations?: Maybe<Array<Maybe<AssetOperation>>>;
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+  userId: Scalars['Int'];
+};
 
 export type AllPortfoliosReport = {
-    __typename?: "AllPortfoliosReport"
-    allCost: Scalars["Float"]
-    allInvestSum: Scalars["Float"]
-    allPaperProfit: Scalars["Float"]
-    allPaperProfitPercent: Scalars["Float"]
-    allPaymentProfit: Scalars["Float"]
-    allPaymentProfitPercent: Scalars["Float"]
-    allUserBalance: Scalars["Float"]
-}
+  __typename?: 'AllPortfoliosReport';
+  allCost: Scalars['Float'];
+  allInvestSum: Scalars['Float'];
+  allPaperProfit: Scalars['Float'];
+  allPaperProfitPercent: Scalars['Float'];
+  allPaymentProfit: Scalars['Float'];
+  allPaymentProfitPercent: Scalars['Float'];
+  allUserBalance: Scalars['Float'];
+};
 
 export type StockReport = {
-    __typename?: "StockReport"
-    allPrice: Scalars["Float"]
-    amount: Scalars["Int"]
-    boughtPrice: Scalars["Float"]
-    name?: Maybe<Scalars["String"]>
-    nearestDividend?: Maybe<PaymentData>
-    paidDividends: Scalars["Float"]
-    paperProfit: Scalars["Float"]
-    paperProfitPercent: Scalars["Float"]
-    price: Scalars["Float"]
-    priceChange: Scalars["Float"]
-    ticket?: Maybe<Scalars["String"]>
-    updateTime?: Maybe<Scalars["String"]>
-}
+  __typename?: 'StockReport';
+  allPrice: Scalars['Float'];
+  amount: Scalars['Int'];
+  boughtPrice: Scalars['Float'];
+  name?: Maybe<Scalars['String']>;
+  nearestDividend?: Maybe<PaymentData>;
+  paidDividends: Scalars['Float'];
+  paperProfit: Scalars['Float'];
+  paperProfitPercent: Scalars['Float'];
+  price: Scalars['Float'];
+  priceChange: Scalars['Float'];
+  ticket?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+};
 
 export type FondReport = {
-    __typename?: "FondReport"
-    allPrice: Scalars["Float"]
-    amount: Scalars["Int"]
-    boughtPrice: Scalars["Float"]
-    name?: Maybe<Scalars["String"]>
-    paperProfit: Scalars["Float"]
-    paperProfitPercent: Scalars["Float"]
-    price: Scalars["Float"]
-    priceChange: Scalars["Float"]
-    ticket?: Maybe<Scalars["String"]>
-    updateTime?: Maybe<Scalars["String"]>
-}
+  __typename?: 'FondReport';
+  allPrice: Scalars['Float'];
+  amount: Scalars['Int'];
+  boughtPrice: Scalars['Float'];
+  name?: Maybe<Scalars['String']>;
+  paperProfit: Scalars['Float'];
+  paperProfitPercent: Scalars['Float'];
+  price: Scalars['Float'];
+  priceChange: Scalars['Float'];
+  ticket?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+};
 
 export type BondReport = {
-    __typename?: "BondReport"
-    allPrice: Scalars["Float"]
-    amortizationDate: Scalars["DateTime"]
-    amount: Scalars["Int"]
-    boughtPrice: Scalars["Float"]
-    hasAmortized: Scalars["Boolean"]
-    name?: Maybe<Scalars["String"]>
-    nearestPayment?: Maybe<PaymentData>
-    paidPayments: Scalars["Float"]
-    paperProfit: Scalars["Float"]
-    paperProfitPercent: Scalars["Float"]
-    price: Scalars["Float"]
-    priceChange: Scalars["Float"]
-    ticket?: Maybe<Scalars["String"]>
-    updateTime?: Maybe<Scalars["String"]>
-}
+  __typename?: 'BondReport';
+  allPrice: Scalars['Float'];
+  amortizationDate: Scalars['DateTime'];
+  amount: Scalars['Int'];
+  boughtPrice: Scalars['Float'];
+  hasAmortized: Scalars['Boolean'];
+  name?: Maybe<Scalars['String']>;
+  nearestPayment?: Maybe<PaymentData>;
+  paidPayments: Scalars['Float'];
+  paperProfit: Scalars['Float'];
+  paperProfitPercent: Scalars['Float'];
+  price: Scalars['Float'];
+  priceChange: Scalars['Float'];
+  ticket?: Maybe<Scalars['String']>;
+  updateTime?: Maybe<Scalars['String']>;
+};
+
+export type AssetPrices = {
+  __typename?: 'AssetPrices';
+  bondPrice: Scalars['Int'];
+  fondPrice: Scalars['Int'];
+  stockPrice: Scalars['Int'];
+};
 
 export type AssetOperation = {
-    __typename?: "AssetOperation"
-    amount: Scalars["Int"]
-    assetAction?: Maybe<AssetAction>
-    assetActionId: Scalars["Int"]
-    assetType?: Maybe<AssetType>
-    assetTypeId: Scalars["Int"]
-    date: Scalars["DateTime"]
-    id: Scalars["Int"]
-    paymentPrice: Scalars["Int"]
-    portfolio?: Maybe<Portfolio>
-    portfolioId: Scalars["Int"]
-    ticket?: Maybe<Scalars["String"]>
-}
+  __typename?: 'AssetOperation';
+  amount: Scalars['Int'];
+  assetAction?: Maybe<AssetAction>;
+  assetActionId: Scalars['Int'];
+  assetType?: Maybe<AssetType>;
+  assetTypeId: Scalars['Int'];
+  date: Scalars['DateTime'];
+  id: Scalars['Int'];
+  paymentPrice: Scalars['Int'];
+  portfolio?: Maybe<Portfolio>;
+  portfolioId: Scalars['Int'];
+  ticket?: Maybe<Scalars['String']>;
+};
 
 export type CurrencyOperation = {
-    __typename?: "CurrencyOperation"
-    currencyAction?: Maybe<CurrencyAction>
-    currencyActionId: Scalars["Int"]
-    currencyId?: Maybe<Scalars["String"]>
-    currencyName?: Maybe<Scalars["String"]>
-    date: Scalars["DateTime"]
-    id: Scalars["Int"]
-    portfolio?: Maybe<Portfolio>
-    portfolioId: Scalars["Int"]
-    price: Scalars["Int"]
-}
+  __typename?: 'CurrencyOperation';
+  currencyAction?: Maybe<CurrencyAction>;
+  currencyActionId: Scalars['Int'];
+  currencyId?: Maybe<Scalars['String']>;
+  currencyName?: Maybe<Scalars['String']>;
+  date: Scalars['DateTime'];
+  id: Scalars['Int'];
+  portfolio?: Maybe<Portfolio>;
+  portfolioId: Scalars['Int'];
+  price: Scalars['Int'];
+};
 
 export type AssetType = {
-    __typename?: "AssetType"
-    assetOperations?: Maybe<Array<Maybe<AssetOperation>>>
-    id: Scalars["Int"]
-    name?: Maybe<Scalars["String"]>
-}
+  __typename?: 'AssetType';
+  assetOperations?: Maybe<Array<Maybe<AssetOperation>>>;
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+};
 
 export type AssetAction = {
-    __typename?: "AssetAction"
-    assetOperations?: Maybe<Array<Maybe<AssetOperation>>>
-    id: Scalars["Int"]
-    name?: Maybe<Scalars["String"]>
-}
+  __typename?: 'AssetAction';
+  assetOperations?: Maybe<Array<Maybe<AssetOperation>>>;
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+};
 
 export type CurrencyAction = {
-    __typename?: "CurrencyAction"
-    currencyOperations?: Maybe<Array<Maybe<CurrencyOperation>>>
-    id: Scalars["Int"]
-    name?: Maybe<Scalars["String"]>
-}
+  __typename?: 'CurrencyAction';
+  currencyOperations?: Maybe<Array<Maybe<CurrencyOperation>>>;
+  id: Scalars['Int'];
+  name?: Maybe<Scalars['String']>;
+};
 
 export type OperationResult = {
-    __typename?: "OperationResult"
-    isSuccess: Scalars["Boolean"]
-    message?: Maybe<Scalars["String"]>
-}
+  __typename?: 'OperationResult';
+  isSuccess: Scalars['Boolean'];
+  message?: Maybe<Scalars['String']>;
+};
 
 export type BuyAssetInput = {
-    amount: Scalars["Int"]
-    assetTypeId: Scalars["Int"]
-    date: Scalars["DateTime"]
-    portfolioId: Scalars["Int"]
-    price: Scalars["Int"]
-    ticket?: Maybe<Scalars["String"]>
-}
+  amount: Scalars['Int'];
+  assetTypeId: Scalars['Int'];
+  date: Scalars['DateTime'];
+  portfolioId: Scalars['Int'];
+  price: Scalars['Int'];
+  ticket?: Maybe<Scalars['String']>;
+};
 
 export type SellAssetInput = {
-    amount: Scalars["Int"]
-    assetTypeId: Scalars["Int"]
-    date: Scalars["DateTime"]
-    portfolioId: Scalars["Int"]
-    price: Scalars["Int"]
-    ticket?: Maybe<Scalars["String"]>
-}
+  amount: Scalars['Int'];
+  assetTypeId: Scalars['Int'];
+  date: Scalars['DateTime'];
+  portfolioId: Scalars['Int'];
+  price: Scalars['Int'];
+  ticket?: Maybe<Scalars['String']>;
+};
 
 export type RefillBalanceInput = {
-    date: Scalars["DateTime"]
-    portfolioId: Scalars["Int"]
-    price: Scalars["Int"]
-}
+  date: Scalars['DateTime'];
+  portfolioId: Scalars['Int'];
+  price: Scalars['Int'];
+};
 
 export type WithdrawalBalanceInput = {
-    date: Scalars["DateTime"]
-    portfolioId: Scalars["Int"]
-    price: Scalars["Int"]
-}
+  date: Scalars['DateTime'];
+  portfolioId: Scalars['Int'];
+  price: Scalars['Int'];
+};
 
 export type PaymentData = {
-    __typename?: "PaymentData"
-    currencyId?: Maybe<Scalars["String"]>
-    paymentValue: Scalars["Int"]
-    registryCloseDate: Scalars["DateTime"]
-    ticket?: Maybe<Scalars["String"]>
-}
+  __typename?: 'PaymentData';
+  currencyId?: Maybe<Scalars['String']>;
+  paymentValue: Scalars['Int'];
+  registryCloseDate: Scalars['DateTime'];
+  ticket?: Maybe<Scalars['String']>;
+};
 
-export type PortfolioReportsQueryVariables = Exact<{ [key: string]: never }>
 
-export type PortfolioReportsQuery = { __typename?: "Queries" } & {
-    allPortfoliosReport?: Maybe<
-        { __typename?: "AllPortfoliosReport" } & Pick<
-            AllPortfoliosReport,
-            | "allCost"
-            | "allInvestSum"
-            | "allPaperProfit"
-            | "allPaperProfitPercent"
-            | "allPaymentProfit"
-            | "allPaymentProfitPercent"
-            | "allUserBalance"
-        >
-    >
-}
+export type PortfolioReportsQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type PortfoliosQueryVariables = Exact<{ [key: string]: never }>
 
-export type PortfoliosQuery = { __typename?: "Queries" } & {
-    portfolios?: Maybe<Array<Maybe<{ __typename?: "Portfolio" } & Pick<Portfolio, "id" | "name">>>>
-}
+export type PortfolioReportsQuery = (
+  { __typename?: 'Queries' }
+  & { allPortfoliosReport?: Maybe<(
+    { __typename?: 'AllPortfoliosReport' }
+    & Pick<AllPortfoliosReport, 'allCost' | 'allInvestSum' | 'allPaperProfit' | 'allPaperProfitPercent' | 'allPaymentProfit' | 'allPaymentProfitPercent' | 'allUserBalance'>
+  )> }
+);
+
+export type PortfoliosQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type PortfoliosQuery = (
+  { __typename?: 'Queries' }
+  & { portfolios?: Maybe<Array<Maybe<(
+    { __typename?: 'Portfolio' }
+    & Pick<Portfolio, 'id' | 'name'>
+  )>>> }
+);
 
 export type StockReportsQueryVariables = Exact<{
-    portfolioId: Scalars["Int"]
-}>
+  portfolioId: Scalars['Int'];
+}>;
 
-export type StockReportsQuery = { __typename?: "Queries" } & {
-    stockReports?: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "StockReport" } & Pick<
-                    StockReport,
-                    | "name"
-                    | "ticket"
-                    | "amount"
-                    | "price"
-                    | "priceChange"
-                    | "allPrice"
-                    | "boughtPrice"
-                    | "paperProfit"
-                    | "paperProfitPercent"
-                    | "paidDividends"
-                    | "updateTime"
-                > & {
-                        nearestDividend?: Maybe<
-                            { __typename?: "PaymentData" } & Pick<
-                                PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
-                            >
-                        >
-                    }
-            >
-        >
-    >
-}
+
+export type StockReportsQuery = (
+  { __typename?: 'Queries' }
+  & { stockReports?: Maybe<Array<Maybe<(
+    { __typename?: 'StockReport' }
+    & Pick<StockReport, 'name' | 'ticket' | 'amount' | 'price' | 'priceChange' | 'allPrice' | 'boughtPrice' | 'paperProfit' | 'paperProfitPercent' | 'paidDividends' | 'updateTime'>
+    & { nearestDividend?: Maybe<(
+      { __typename?: 'PaymentData' }
+      & Pick<PaymentData, 'currencyId' | 'paymentValue' | 'registryCloseDate'>
+    )> }
+  )>>> }
+);
 
 export type FondReportsQueryVariables = Exact<{
-    portfolioId: Scalars["Int"]
-}>
+  portfolioId: Scalars['Int'];
+}>;
 
-export type FondReportsQuery = { __typename?: "Queries" } & {
-    fondReports?: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "FondReport" } & Pick<
-                    FondReport,
-                    | "name"
-                    | "ticket"
-                    | "amount"
-                    | "price"
-                    | "priceChange"
-                    | "allPrice"
-                    | "boughtPrice"
-                    | "paperProfit"
-                    | "paperProfitPercent"
-                    | "updateTime"
-                >
-            >
-        >
-    >
-}
+
+export type FondReportsQuery = (
+  { __typename?: 'Queries' }
+  & { fondReports?: Maybe<Array<Maybe<(
+    { __typename?: 'FondReport' }
+    & Pick<FondReport, 'name' | 'ticket' | 'amount' | 'price' | 'priceChange' | 'allPrice' | 'boughtPrice' | 'paperProfit' | 'paperProfitPercent' | 'updateTime'>
+  )>>> }
+);
 
 export type BondReportsQueryVariables = Exact<{
-    portfolioId: Scalars["Int"]
-}>
+  portfolioId: Scalars['Int'];
+}>;
 
-export type BondReportsQuery = { __typename?: "Queries" } & {
-    bondReports?: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "BondReport" } & Pick<
-                    BondReport,
-                    | "name"
-                    | "ticket"
-                    | "amount"
-                    | "price"
-                    | "priceChange"
-                    | "allPrice"
-                    | "boughtPrice"
-                    | "paperProfit"
-                    | "paperProfitPercent"
-                    | "paidPayments"
-                    | "updateTime"
-                    | "amortizationDate"
-                    | "hasAmortized"
-                > & {
-                        nearestPayment?: Maybe<
-                            { __typename?: "PaymentData" } & Pick<
-                                PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
-                            >
-                        >
-                    }
-            >
-        >
-    >
-}
+
+export type BondReportsQuery = (
+  { __typename?: 'Queries' }
+  & { bondReports?: Maybe<Array<Maybe<(
+    { __typename?: 'BondReport' }
+    & Pick<BondReport, 'name' | 'ticket' | 'amount' | 'price' | 'priceChange' | 'allPrice' | 'boughtPrice' | 'paperProfit' | 'paperProfitPercent' | 'paidPayments' | 'updateTime' | 'amortizationDate' | 'hasAmortized'>
+    & { nearestPayment?: Maybe<(
+      { __typename?: 'PaymentData' }
+      & Pick<PaymentData, 'currencyId' | 'paymentValue' | 'registryCloseDate'>
+    )> }
+  )>>> }
+);
 
 export type StopUpdateMutationVariables = Exact<{
-    handleId: Scalars["String"]
-}>
+  handleId: Scalars['String'];
+}>;
 
-export type StopUpdateMutation = { __typename?: "Mutations" } & Pick<Mutations, "stopUpdate">
 
-export type StartPortfoliosReportUpdateMutationVariables = Exact<{ [key: string]: never }>
+export type StopUpdateMutation = (
+  { __typename?: 'Mutations' }
+  & Pick<Mutations, 'stopUpdate'>
+);
 
-export type StartPortfoliosReportUpdateMutation = { __typename?: "Mutations" } & Pick<
-    Mutations,
-    "startPortfoliosReportUpdate"
->
+export type StartPortfoliosReportUpdateMutationVariables = Exact<{ [key: string]: never; }>;
 
-export type StartAssetReportsUpdateMutationVariables = Exact<{
-    portfolioId: Scalars["Int"]
-}>
 
-export type StartAssetReportsUpdateMutation = { __typename?: "Mutations" } & Pick<Mutations, "startAssetReportsUpdate">
+export type StartPortfoliosReportUpdateMutation = (
+  { __typename?: 'Mutations' }
+  & Pick<Mutations, 'startPortfoliosReportUpdate'>
+);
 
-export type UpdatePortfoliosReportSubscriptionVariables = Exact<{ [key: string]: never }>
+export type StartAssetReportsUpdateMutationVariables = Exact<{ [key: string]: never; }>;
 
-export type UpdatePortfoliosReportSubscription = { __typename?: "Subscriptions" } & {
-    onUpdatePortfoliosReport?: Maybe<
-        { __typename?: "AllPortfoliosReport" } & Pick<
-            AllPortfoliosReport,
-            | "allCost"
-            | "allInvestSum"
-            | "allPaperProfit"
-            | "allPaperProfitPercent"
-            | "allPaymentProfit"
-            | "allPaymentProfitPercent"
-            | "allUserBalance"
-        >
-    >
-}
 
-export type UpdateStockReportsSubscriptionVariables = Exact<{ [key: string]: never }>
+export type StartAssetReportsUpdateMutation = (
+  { __typename?: 'Mutations' }
+  & Pick<Mutations, 'startAssetReportsUpdate'>
+);
 
-export type UpdateStockReportsSubscription = { __typename?: "Subscriptions" } & {
-    onUpdateStockReports?: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "StockReport" } & Pick<
-                    StockReport,
-                    | "name"
-                    | "ticket"
-                    | "amount"
-                    | "price"
-                    | "priceChange"
-                    | "allPrice"
-                    | "boughtPrice"
-                    | "paperProfit"
-                    | "paperProfitPercent"
-                    | "paidDividends"
-                    | "updateTime"
-                > & {
-                        nearestDividend?: Maybe<
-                            { __typename?: "PaymentData" } & Pick<
-                                PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
-                            >
-                        >
-                    }
-            >
-        >
-    >
-}
+export type UpdatePortfoliosReportSubscriptionVariables = Exact<{ [key: string]: never; }>;
 
-export type UpdateFondReportsSubscriptionVariables = Exact<{ [key: string]: never }>
 
-export type UpdateFondReportsSubscription = { __typename?: "Subscriptions" } & {
-    onUpdateFondReports?: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "FondReport" } & Pick<
-                    FondReport,
-                    | "name"
-                    | "ticket"
-                    | "amount"
-                    | "price"
-                    | "priceChange"
-                    | "allPrice"
-                    | "boughtPrice"
-                    | "paperProfit"
-                    | "paperProfitPercent"
-                    | "updateTime"
-                >
-            >
-        >
-    >
-}
+export type UpdatePortfoliosReportSubscription = (
+  { __typename?: 'Subscriptions' }
+  & { onUpdatePortfoliosReport?: Maybe<(
+    { __typename?: 'AllPortfoliosReport' }
+    & Pick<AllPortfoliosReport, 'allCost' | 'allInvestSum' | 'allPaperProfit' | 'allPaperProfitPercent' | 'allPaymentProfit' | 'allPaymentProfitPercent' | 'allUserBalance'>
+  )> }
+);
 
-export type UpdateBondReportsSubscriptionVariables = Exact<{ [key: string]: never }>
+export type UpdateStockReportsSubscriptionVariables = Exact<{
+  portfolioId: Scalars['Int'];
+}>;
 
-export type UpdateBondReportsSubscription = { __typename?: "Subscriptions" } & {
-    onUpdateBondReports?: Maybe<
-        Array<
-            Maybe<
-                { __typename?: "BondReport" } & Pick<
-                    BondReport,
-                    | "name"
-                    | "ticket"
-                    | "amount"
-                    | "price"
-                    | "priceChange"
-                    | "allPrice"
-                    | "boughtPrice"
-                    | "paperProfit"
-                    | "paperProfitPercent"
-                    | "paidPayments"
-                    | "updateTime"
-                    | "amortizationDate"
-                    | "hasAmortized"
-                > & {
-                        nearestPayment?: Maybe<
-                            { __typename?: "PaymentData" } & Pick<
-                                PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
-                            >
-                        >
-                    }
-            >
-        >
-    >
-}
+
+export type UpdateStockReportsSubscription = (
+  { __typename?: 'Subscriptions' }
+  & { onUpdateStockReports?: Maybe<Array<Maybe<(
+    { __typename?: 'StockReport' }
+    & Pick<StockReport, 'name' | 'ticket' | 'amount' | 'price' | 'priceChange' | 'allPrice' | 'boughtPrice' | 'paperProfit' | 'paperProfitPercent' | 'paidDividends' | 'updateTime'>
+    & { nearestDividend?: Maybe<(
+      { __typename?: 'PaymentData' }
+      & Pick<PaymentData, 'currencyId' | 'paymentValue' | 'registryCloseDate'>
+    )> }
+  )>>> }
+);
+
+export type UpdateFondReportsSubscriptionVariables = Exact<{
+  portfolioId: Scalars['Int'];
+}>;
+
+
+export type UpdateFondReportsSubscription = (
+  { __typename?: 'Subscriptions' }
+  & { onUpdateFondReports?: Maybe<Array<Maybe<(
+    { __typename?: 'FondReport' }
+    & Pick<FondReport, 'name' | 'ticket' | 'amount' | 'price' | 'priceChange' | 'allPrice' | 'boughtPrice' | 'paperProfit' | 'paperProfitPercent' | 'updateTime'>
+  )>>> }
+);
+
+export type UpdateBondReportsSubscriptionVariables = Exact<{
+  portfolioId: Scalars['Int'];
+}>;
+
+
+export type UpdateBondReportsSubscription = (
+  { __typename?: 'Subscriptions' }
+  & { onUpdateBondReports?: Maybe<Array<Maybe<(
+    { __typename?: 'BondReport' }
+    & Pick<BondReport, 'name' | 'ticket' | 'amount' | 'price' | 'priceChange' | 'allPrice' | 'boughtPrice' | 'paperProfit' | 'paperProfitPercent' | 'paidPayments' | 'updateTime' | 'amortizationDate' | 'hasAmortized'>
+    & { nearestPayment?: Maybe<(
+      { __typename?: 'PaymentData' }
+      & Pick<PaymentData, 'currencyId' | 'paymentValue' | 'registryCloseDate'>
+    )> }
+  )>>> }
+);
+
 
 export const PortfolioReportsDocument = gql`
     query portfolioReports {
-        allPortfoliosReport {
-            allCost
-            allInvestSum
-            allPaperProfit
-            allPaperProfitPercent
-            allPaymentProfit
-            allPaymentProfitPercent
-            allUserBalance
-        }
-    }
-`
+  allPortfoliosReport {
+    allCost
+    allInvestSum
+    allPaperProfit
+    allPaperProfitPercent
+    allPaymentProfit
+    allPaymentProfitPercent
+    allUserBalance
+  }
+}
+    `;
 
 /**
  * __usePortfolioReportsQuery__
@@ -535,36 +477,23 @@ export const PortfolioReportsDocument = gql`
  *   },
  * });
  */
-export function usePortfolioReportsQuery(
-    baseOptions?: ApolloReactHooks.QueryHookOptions<PortfolioReportsQuery, PortfolioReportsQueryVariables>
-) {
-    return ApolloReactHooks.useQuery<PortfolioReportsQuery, PortfolioReportsQueryVariables>(
-        PortfolioReportsDocument,
-        baseOptions
-    )
-}
-export function usePortfolioReportsLazyQuery(
-    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PortfolioReportsQuery, PortfolioReportsQueryVariables>
-) {
-    return ApolloReactHooks.useLazyQuery<PortfolioReportsQuery, PortfolioReportsQueryVariables>(
-        PortfolioReportsDocument,
-        baseOptions
-    )
-}
-export type PortfolioReportsQueryHookResult = ReturnType<typeof usePortfolioReportsQuery>
-export type PortfolioReportsLazyQueryHookResult = ReturnType<typeof usePortfolioReportsLazyQuery>
-export type PortfolioReportsQueryResult = ApolloReactCommon.QueryResult<
-    PortfolioReportsQuery,
-    PortfolioReportsQueryVariables
->
+export function usePortfolioReportsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PortfolioReportsQuery, PortfolioReportsQueryVariables>) {
+        return ApolloReactHooks.useQuery<PortfolioReportsQuery, PortfolioReportsQueryVariables>(PortfolioReportsDocument, baseOptions);
+      }
+export function usePortfolioReportsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PortfolioReportsQuery, PortfolioReportsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PortfolioReportsQuery, PortfolioReportsQueryVariables>(PortfolioReportsDocument, baseOptions);
+        }
+export type PortfolioReportsQueryHookResult = ReturnType<typeof usePortfolioReportsQuery>;
+export type PortfolioReportsLazyQueryHookResult = ReturnType<typeof usePortfolioReportsLazyQuery>;
+export type PortfolioReportsQueryResult = ApolloReactCommon.QueryResult<PortfolioReportsQuery, PortfolioReportsQueryVariables>;
 export const PortfoliosDocument = gql`
     query portfolios {
-        portfolios {
-            id
-            name
-        }
-    }
-`
+  portfolios {
+    id
+    name
+  }
+}
+    `;
 
 /**
  * __usePortfoliosQuery__
@@ -581,41 +510,37 @@ export const PortfoliosDocument = gql`
  *   },
  * });
  */
-export function usePortfoliosQuery(
-    baseOptions?: ApolloReactHooks.QueryHookOptions<PortfoliosQuery, PortfoliosQueryVariables>
-) {
-    return ApolloReactHooks.useQuery<PortfoliosQuery, PortfoliosQueryVariables>(PortfoliosDocument, baseOptions)
-}
-export function usePortfoliosLazyQuery(
-    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PortfoliosQuery, PortfoliosQueryVariables>
-) {
-    return ApolloReactHooks.useLazyQuery<PortfoliosQuery, PortfoliosQueryVariables>(PortfoliosDocument, baseOptions)
-}
-export type PortfoliosQueryHookResult = ReturnType<typeof usePortfoliosQuery>
-export type PortfoliosLazyQueryHookResult = ReturnType<typeof usePortfoliosLazyQuery>
-export type PortfoliosQueryResult = ApolloReactCommon.QueryResult<PortfoliosQuery, PortfoliosQueryVariables>
+export function usePortfoliosQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PortfoliosQuery, PortfoliosQueryVariables>) {
+        return ApolloReactHooks.useQuery<PortfoliosQuery, PortfoliosQueryVariables>(PortfoliosDocument, baseOptions);
+      }
+export function usePortfoliosLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PortfoliosQuery, PortfoliosQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<PortfoliosQuery, PortfoliosQueryVariables>(PortfoliosDocument, baseOptions);
+        }
+export type PortfoliosQueryHookResult = ReturnType<typeof usePortfoliosQuery>;
+export type PortfoliosLazyQueryHookResult = ReturnType<typeof usePortfoliosLazyQuery>;
+export type PortfoliosQueryResult = ApolloReactCommon.QueryResult<PortfoliosQuery, PortfoliosQueryVariables>;
 export const StockReportsDocument = gql`
     query stockReports($portfolioId: Int!) {
-        stockReports(portfolioId: $portfolioId) {
-            name
-            ticket
-            amount
-            price
-            priceChange
-            allPrice
-            boughtPrice
-            paperProfit
-            paperProfitPercent
-            nearestDividend {
-                currencyId
-                paymentValue
-                registryCloseDate
-            }
-            paidDividends
-            updateTime
-        }
+  stockReports(portfolioId: $portfolioId) {
+    name
+    ticket
+    amount
+    price
+    priceChange
+    allPrice
+    boughtPrice
+    paperProfit
+    paperProfitPercent
+    nearestDividend {
+      currencyId
+      paymentValue
+      registryCloseDate
     }
-`
+    paidDividends
+    updateTime
+  }
+}
+    `;
 
 /**
  * __useStockReportsQuery__
@@ -633,38 +558,31 @@ export const StockReportsDocument = gql`
  *   },
  * });
  */
-export function useStockReportsQuery(
-    baseOptions?: ApolloReactHooks.QueryHookOptions<StockReportsQuery, StockReportsQueryVariables>
-) {
-    return ApolloReactHooks.useQuery<StockReportsQuery, StockReportsQueryVariables>(StockReportsDocument, baseOptions)
-}
-export function useStockReportsLazyQuery(
-    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<StockReportsQuery, StockReportsQueryVariables>
-) {
-    return ApolloReactHooks.useLazyQuery<StockReportsQuery, StockReportsQueryVariables>(
-        StockReportsDocument,
-        baseOptions
-    )
-}
-export type StockReportsQueryHookResult = ReturnType<typeof useStockReportsQuery>
-export type StockReportsLazyQueryHookResult = ReturnType<typeof useStockReportsLazyQuery>
-export type StockReportsQueryResult = ApolloReactCommon.QueryResult<StockReportsQuery, StockReportsQueryVariables>
+export function useStockReportsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<StockReportsQuery, StockReportsQueryVariables>) {
+        return ApolloReactHooks.useQuery<StockReportsQuery, StockReportsQueryVariables>(StockReportsDocument, baseOptions);
+      }
+export function useStockReportsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<StockReportsQuery, StockReportsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<StockReportsQuery, StockReportsQueryVariables>(StockReportsDocument, baseOptions);
+        }
+export type StockReportsQueryHookResult = ReturnType<typeof useStockReportsQuery>;
+export type StockReportsLazyQueryHookResult = ReturnType<typeof useStockReportsLazyQuery>;
+export type StockReportsQueryResult = ApolloReactCommon.QueryResult<StockReportsQuery, StockReportsQueryVariables>;
 export const FondReportsDocument = gql`
     query fondReports($portfolioId: Int!) {
-        fondReports(portfolioId: $portfolioId) {
-            name
-            ticket
-            amount
-            price
-            priceChange
-            allPrice
-            boughtPrice
-            paperProfit
-            paperProfitPercent
-            updateTime
-        }
-    }
-`
+  fondReports(portfolioId: $portfolioId) {
+    name
+    ticket
+    amount
+    price
+    priceChange
+    allPrice
+    boughtPrice
+    paperProfit
+    paperProfitPercent
+    updateTime
+  }
+}
+    `;
 
 /**
  * __useFondReportsQuery__
@@ -682,43 +600,39 @@ export const FondReportsDocument = gql`
  *   },
  * });
  */
-export function useFondReportsQuery(
-    baseOptions?: ApolloReactHooks.QueryHookOptions<FondReportsQuery, FondReportsQueryVariables>
-) {
-    return ApolloReactHooks.useQuery<FondReportsQuery, FondReportsQueryVariables>(FondReportsDocument, baseOptions)
-}
-export function useFondReportsLazyQuery(
-    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FondReportsQuery, FondReportsQueryVariables>
-) {
-    return ApolloReactHooks.useLazyQuery<FondReportsQuery, FondReportsQueryVariables>(FondReportsDocument, baseOptions)
-}
-export type FondReportsQueryHookResult = ReturnType<typeof useFondReportsQuery>
-export type FondReportsLazyQueryHookResult = ReturnType<typeof useFondReportsLazyQuery>
-export type FondReportsQueryResult = ApolloReactCommon.QueryResult<FondReportsQuery, FondReportsQueryVariables>
+export function useFondReportsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<FondReportsQuery, FondReportsQueryVariables>) {
+        return ApolloReactHooks.useQuery<FondReportsQuery, FondReportsQueryVariables>(FondReportsDocument, baseOptions);
+      }
+export function useFondReportsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<FondReportsQuery, FondReportsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<FondReportsQuery, FondReportsQueryVariables>(FondReportsDocument, baseOptions);
+        }
+export type FondReportsQueryHookResult = ReturnType<typeof useFondReportsQuery>;
+export type FondReportsLazyQueryHookResult = ReturnType<typeof useFondReportsLazyQuery>;
+export type FondReportsQueryResult = ApolloReactCommon.QueryResult<FondReportsQuery, FondReportsQueryVariables>;
 export const BondReportsDocument = gql`
     query bondReports($portfolioId: Int!) {
-        bondReports(portfolioId: $portfolioId) {
-            name
-            ticket
-            amount
-            price
-            priceChange
-            allPrice
-            boughtPrice
-            paperProfit
-            paperProfitPercent
-            nearestPayment {
-                currencyId
-                paymentValue
-                registryCloseDate
-            }
-            paidPayments
-            updateTime
-            amortizationDate
-            hasAmortized
-        }
+  bondReports(portfolioId: $portfolioId) {
+    name
+    ticket
+    amount
+    price
+    priceChange
+    allPrice
+    boughtPrice
+    paperProfit
+    paperProfitPercent
+    nearestPayment {
+      currencyId
+      paymentValue
+      registryCloseDate
     }
-`
+    paidPayments
+    updateTime
+    amortizationDate
+    hasAmortized
+  }
+}
+    `;
 
 /**
  * __useBondReportsQuery__
@@ -736,25 +650,21 @@ export const BondReportsDocument = gql`
  *   },
  * });
  */
-export function useBondReportsQuery(
-    baseOptions?: ApolloReactHooks.QueryHookOptions<BondReportsQuery, BondReportsQueryVariables>
-) {
-    return ApolloReactHooks.useQuery<BondReportsQuery, BondReportsQueryVariables>(BondReportsDocument, baseOptions)
-}
-export function useBondReportsLazyQuery(
-    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BondReportsQuery, BondReportsQueryVariables>
-) {
-    return ApolloReactHooks.useLazyQuery<BondReportsQuery, BondReportsQueryVariables>(BondReportsDocument, baseOptions)
-}
-export type BondReportsQueryHookResult = ReturnType<typeof useBondReportsQuery>
-export type BondReportsLazyQueryHookResult = ReturnType<typeof useBondReportsLazyQuery>
-export type BondReportsQueryResult = ApolloReactCommon.QueryResult<BondReportsQuery, BondReportsQueryVariables>
+export function useBondReportsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<BondReportsQuery, BondReportsQueryVariables>) {
+        return ApolloReactHooks.useQuery<BondReportsQuery, BondReportsQueryVariables>(BondReportsDocument, baseOptions);
+      }
+export function useBondReportsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<BondReportsQuery, BondReportsQueryVariables>) {
+          return ApolloReactHooks.useLazyQuery<BondReportsQuery, BondReportsQueryVariables>(BondReportsDocument, baseOptions);
+        }
+export type BondReportsQueryHookResult = ReturnType<typeof useBondReportsQuery>;
+export type BondReportsLazyQueryHookResult = ReturnType<typeof useBondReportsLazyQuery>;
+export type BondReportsQueryResult = ApolloReactCommon.QueryResult<BondReportsQuery, BondReportsQueryVariables>;
 export const StopUpdateDocument = gql`
     mutation stopUpdate($handleId: String!) {
-        stopUpdate(handlerId: $handleId)
-    }
-`
-export type StopUpdateMutationFn = ApolloReactCommon.MutationFunction<StopUpdateMutation, StopUpdateMutationVariables>
+  stopUpdate(handlerId: $handleId)
+}
+    `;
+export type StopUpdateMutationFn = ApolloReactCommon.MutationFunction<StopUpdateMutation, StopUpdateMutationVariables>;
 
 /**
  * __useStopUpdateMutation__
@@ -773,29 +683,18 @@ export type StopUpdateMutationFn = ApolloReactCommon.MutationFunction<StopUpdate
  *   },
  * });
  */
-export function useStopUpdateMutation(
-    baseOptions?: ApolloReactHooks.MutationHookOptions<StopUpdateMutation, StopUpdateMutationVariables>
-) {
-    return ApolloReactHooks.useMutation<StopUpdateMutation, StopUpdateMutationVariables>(
-        StopUpdateDocument,
-        baseOptions
-    )
-}
-export type StopUpdateMutationHookResult = ReturnType<typeof useStopUpdateMutation>
-export type StopUpdateMutationResult = ApolloReactCommon.MutationResult<StopUpdateMutation>
-export type StopUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<
-    StopUpdateMutation,
-    StopUpdateMutationVariables
->
+export function useStopUpdateMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<StopUpdateMutation, StopUpdateMutationVariables>) {
+        return ApolloReactHooks.useMutation<StopUpdateMutation, StopUpdateMutationVariables>(StopUpdateDocument, baseOptions);
+      }
+export type StopUpdateMutationHookResult = ReturnType<typeof useStopUpdateMutation>;
+export type StopUpdateMutationResult = ApolloReactCommon.MutationResult<StopUpdateMutation>;
+export type StopUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<StopUpdateMutation, StopUpdateMutationVariables>;
 export const StartPortfoliosReportUpdateDocument = gql`
     mutation startPortfoliosReportUpdate {
-        startPortfoliosReportUpdate
-    }
-`
-export type StartPortfoliosReportUpdateMutationFn = ApolloReactCommon.MutationFunction<
-    StartPortfoliosReportUpdateMutation,
-    StartPortfoliosReportUpdateMutationVariables
->
+  startPortfoliosReportUpdate
+}
+    `;
+export type StartPortfoliosReportUpdateMutationFn = ApolloReactCommon.MutationFunction<StartPortfoliosReportUpdateMutation, StartPortfoliosReportUpdateMutationVariables>;
 
 /**
  * __useStartPortfoliosReportUpdateMutation__
@@ -813,34 +712,18 @@ export type StartPortfoliosReportUpdateMutationFn = ApolloReactCommon.MutationFu
  *   },
  * });
  */
-export function useStartPortfoliosReportUpdateMutation(
-    baseOptions?: ApolloReactHooks.MutationHookOptions<
-        StartPortfoliosReportUpdateMutation,
-        StartPortfoliosReportUpdateMutationVariables
-    >
-) {
-    return ApolloReactHooks.useMutation<
-        StartPortfoliosReportUpdateMutation,
-        StartPortfoliosReportUpdateMutationVariables
-    >(StartPortfoliosReportUpdateDocument, baseOptions)
-}
-export type StartPortfoliosReportUpdateMutationHookResult = ReturnType<typeof useStartPortfoliosReportUpdateMutation>
-export type StartPortfoliosReportUpdateMutationResult = ApolloReactCommon.MutationResult<
-    StartPortfoliosReportUpdateMutation
->
-export type StartPortfoliosReportUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<
-    StartPortfoliosReportUpdateMutation,
-    StartPortfoliosReportUpdateMutationVariables
->
+export function useStartPortfoliosReportUpdateMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<StartPortfoliosReportUpdateMutation, StartPortfoliosReportUpdateMutationVariables>) {
+        return ApolloReactHooks.useMutation<StartPortfoliosReportUpdateMutation, StartPortfoliosReportUpdateMutationVariables>(StartPortfoliosReportUpdateDocument, baseOptions);
+      }
+export type StartPortfoliosReportUpdateMutationHookResult = ReturnType<typeof useStartPortfoliosReportUpdateMutation>;
+export type StartPortfoliosReportUpdateMutationResult = ApolloReactCommon.MutationResult<StartPortfoliosReportUpdateMutation>;
+export type StartPortfoliosReportUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<StartPortfoliosReportUpdateMutation, StartPortfoliosReportUpdateMutationVariables>;
 export const StartAssetReportsUpdateDocument = gql`
-    mutation startAssetReportsUpdate($portfolioId: Int!) {
-        startAssetReportsUpdate(portfolioId: $portfolioId)
-    }
-`
-export type StartAssetReportsUpdateMutationFn = ApolloReactCommon.MutationFunction<
-    StartAssetReportsUpdateMutation,
-    StartAssetReportsUpdateMutationVariables
->
+    mutation startAssetReportsUpdate {
+  startAssetReportsUpdate
+}
+    `;
+export type StartAssetReportsUpdateMutationFn = ApolloReactCommon.MutationFunction<StartAssetReportsUpdateMutation, StartAssetReportsUpdateMutationVariables>;
 
 /**
  * __useStartAssetReportsUpdateMutation__
@@ -855,40 +738,28 @@ export type StartAssetReportsUpdateMutationFn = ApolloReactCommon.MutationFuncti
  * @example
  * const [startAssetReportsUpdateMutation, { data, loading, error }] = useStartAssetReportsUpdateMutation({
  *   variables: {
- *      portfolioId: // value for 'portfolioId'
  *   },
  * });
  */
-export function useStartAssetReportsUpdateMutation(
-    baseOptions?: ApolloReactHooks.MutationHookOptions<
-        StartAssetReportsUpdateMutation,
-        StartAssetReportsUpdateMutationVariables
-    >
-) {
-    return ApolloReactHooks.useMutation<StartAssetReportsUpdateMutation, StartAssetReportsUpdateMutationVariables>(
-        StartAssetReportsUpdateDocument,
-        baseOptions
-    )
-}
-export type StartAssetReportsUpdateMutationHookResult = ReturnType<typeof useStartAssetReportsUpdateMutation>
-export type StartAssetReportsUpdateMutationResult = ApolloReactCommon.MutationResult<StartAssetReportsUpdateMutation>
-export type StartAssetReportsUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<
-    StartAssetReportsUpdateMutation,
-    StartAssetReportsUpdateMutationVariables
->
+export function useStartAssetReportsUpdateMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<StartAssetReportsUpdateMutation, StartAssetReportsUpdateMutationVariables>) {
+        return ApolloReactHooks.useMutation<StartAssetReportsUpdateMutation, StartAssetReportsUpdateMutationVariables>(StartAssetReportsUpdateDocument, baseOptions);
+      }
+export type StartAssetReportsUpdateMutationHookResult = ReturnType<typeof useStartAssetReportsUpdateMutation>;
+export type StartAssetReportsUpdateMutationResult = ApolloReactCommon.MutationResult<StartAssetReportsUpdateMutation>;
+export type StartAssetReportsUpdateMutationOptions = ApolloReactCommon.BaseMutationOptions<StartAssetReportsUpdateMutation, StartAssetReportsUpdateMutationVariables>;
 export const UpdatePortfoliosReportDocument = gql`
     subscription updatePortfoliosReport {
-        onUpdatePortfoliosReport {
-            allCost
-            allInvestSum
-            allPaperProfit
-            allPaperProfitPercent
-            allPaymentProfit
-            allPaymentProfitPercent
-            allUserBalance
-        }
-    }
-`
+  onUpdatePortfoliosReport {
+    allCost
+    allInvestSum
+    allPaperProfit
+    allPaperProfitPercent
+    allPaymentProfit
+    allPaymentProfitPercent
+    allUserBalance
+  }
+}
+    `;
 
 /**
  * __useUpdatePortfoliosReportSubscription__
@@ -905,43 +776,33 @@ export const UpdatePortfoliosReportDocument = gql`
  *   },
  * });
  */
-export function useUpdatePortfoliosReportSubscription(
-    baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
-        UpdatePortfoliosReportSubscription,
-        UpdatePortfoliosReportSubscriptionVariables
-    >
-) {
-    return ApolloReactHooks.useSubscription<
-        UpdatePortfoliosReportSubscription,
-        UpdatePortfoliosReportSubscriptionVariables
-    >(UpdatePortfoliosReportDocument, baseOptions)
-}
-export type UpdatePortfoliosReportSubscriptionHookResult = ReturnType<typeof useUpdatePortfoliosReportSubscription>
-export type UpdatePortfoliosReportSubscriptionResult = ApolloReactCommon.SubscriptionResult<
-    UpdatePortfoliosReportSubscription
->
+export function useUpdatePortfoliosReportSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<UpdatePortfoliosReportSubscription, UpdatePortfoliosReportSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<UpdatePortfoliosReportSubscription, UpdatePortfoliosReportSubscriptionVariables>(UpdatePortfoliosReportDocument, baseOptions);
+      }
+export type UpdatePortfoliosReportSubscriptionHookResult = ReturnType<typeof useUpdatePortfoliosReportSubscription>;
+export type UpdatePortfoliosReportSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdatePortfoliosReportSubscription>;
 export const UpdateStockReportsDocument = gql`
-    subscription updateStockReports {
-        onUpdateStockReports {
-            name
-            ticket
-            amount
-            price
-            priceChange
-            allPrice
-            boughtPrice
-            paperProfit
-            paperProfitPercent
-            nearestDividend {
-                currencyId
-                paymentValue
-                registryCloseDate
-            }
-            paidDividends
-            updateTime
-        }
+    subscription updateStockReports($portfolioId: Int!) {
+  onUpdateStockReports(portfolioId: $portfolioId) {
+    name
+    ticket
+    amount
+    price
+    priceChange
+    allPrice
+    boughtPrice
+    paperProfit
+    paperProfitPercent
+    nearestDividend {
+      currencyId
+      paymentValue
+      registryCloseDate
     }
-`
+    paidDividends
+    updateTime
+  }
+}
+    `;
 
 /**
  * __useUpdateStockReportsSubscription__
@@ -955,38 +816,31 @@ export const UpdateStockReportsDocument = gql`
  * @example
  * const { data, loading, error } = useUpdateStockReportsSubscription({
  *   variables: {
+ *      portfolioId: // value for 'portfolioId'
  *   },
  * });
  */
-export function useUpdateStockReportsSubscription(
-    baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
-        UpdateStockReportsSubscription,
-        UpdateStockReportsSubscriptionVariables
-    >
-) {
-    return ApolloReactHooks.useSubscription<UpdateStockReportsSubscription, UpdateStockReportsSubscriptionVariables>(
-        UpdateStockReportsDocument,
-        baseOptions
-    )
-}
-export type UpdateStockReportsSubscriptionHookResult = ReturnType<typeof useUpdateStockReportsSubscription>
-export type UpdateStockReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateStockReportsSubscription>
+export function useUpdateStockReportsSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<UpdateStockReportsSubscription, UpdateStockReportsSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<UpdateStockReportsSubscription, UpdateStockReportsSubscriptionVariables>(UpdateStockReportsDocument, baseOptions);
+      }
+export type UpdateStockReportsSubscriptionHookResult = ReturnType<typeof useUpdateStockReportsSubscription>;
+export type UpdateStockReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateStockReportsSubscription>;
 export const UpdateFondReportsDocument = gql`
-    subscription updateFondReports {
-        onUpdateFondReports {
-            name
-            ticket
-            amount
-            price
-            priceChange
-            allPrice
-            boughtPrice
-            paperProfit
-            paperProfitPercent
-            updateTime
-        }
-    }
-`
+    subscription updateFondReports($portfolioId: Int!) {
+  onUpdateFondReports(portfolioId: $portfolioId) {
+    name
+    ticket
+    amount
+    price
+    priceChange
+    allPrice
+    boughtPrice
+    paperProfit
+    paperProfitPercent
+    updateTime
+  }
+}
+    `;
 
 /**
  * __useUpdateFondReportsSubscription__
@@ -1000,46 +854,39 @@ export const UpdateFondReportsDocument = gql`
  * @example
  * const { data, loading, error } = useUpdateFondReportsSubscription({
  *   variables: {
+ *      portfolioId: // value for 'portfolioId'
  *   },
  * });
  */
-export function useUpdateFondReportsSubscription(
-    baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
-        UpdateFondReportsSubscription,
-        UpdateFondReportsSubscriptionVariables
-    >
-) {
-    return ApolloReactHooks.useSubscription<UpdateFondReportsSubscription, UpdateFondReportsSubscriptionVariables>(
-        UpdateFondReportsDocument,
-        baseOptions
-    )
-}
-export type UpdateFondReportsSubscriptionHookResult = ReturnType<typeof useUpdateFondReportsSubscription>
-export type UpdateFondReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateFondReportsSubscription>
+export function useUpdateFondReportsSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<UpdateFondReportsSubscription, UpdateFondReportsSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<UpdateFondReportsSubscription, UpdateFondReportsSubscriptionVariables>(UpdateFondReportsDocument, baseOptions);
+      }
+export type UpdateFondReportsSubscriptionHookResult = ReturnType<typeof useUpdateFondReportsSubscription>;
+export type UpdateFondReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateFondReportsSubscription>;
 export const UpdateBondReportsDocument = gql`
-    subscription updateBondReports {
-        onUpdateBondReports {
-            name
-            ticket
-            amount
-            price
-            priceChange
-            allPrice
-            boughtPrice
-            paperProfit
-            paperProfitPercent
-            nearestPayment {
-                currencyId
-                paymentValue
-                registryCloseDate
-            }
-            paidPayments
-            updateTime
-            amortizationDate
-            hasAmortized
-        }
+    subscription updateBondReports($portfolioId: Int!) {
+  onUpdateBondReports(portfolioId: $portfolioId) {
+    name
+    ticket
+    amount
+    price
+    priceChange
+    allPrice
+    boughtPrice
+    paperProfit
+    paperProfitPercent
+    nearestPayment {
+      currencyId
+      paymentValue
+      registryCloseDate
     }
-`
+    paidPayments
+    updateTime
+    amortizationDate
+    hasAmortized
+  }
+}
+    `;
 
 /**
  * __useUpdateBondReportsSubscription__
@@ -1053,19 +900,12 @@ export const UpdateBondReportsDocument = gql`
  * @example
  * const { data, loading, error } = useUpdateBondReportsSubscription({
  *   variables: {
+ *      portfolioId: // value for 'portfolioId'
  *   },
  * });
  */
-export function useUpdateBondReportsSubscription(
-    baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
-        UpdateBondReportsSubscription,
-        UpdateBondReportsSubscriptionVariables
-    >
-) {
-    return ApolloReactHooks.useSubscription<UpdateBondReportsSubscription, UpdateBondReportsSubscriptionVariables>(
-        UpdateBondReportsDocument,
-        baseOptions
-    )
-}
-export type UpdateBondReportsSubscriptionHookResult = ReturnType<typeof useUpdateBondReportsSubscription>
-export type UpdateBondReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateBondReportsSubscription>
+export function useUpdateBondReportsSubscription(baseOptions?: ApolloReactHooks.SubscriptionHookOptions<UpdateBondReportsSubscription, UpdateBondReportsSubscriptionVariables>) {
+        return ApolloReactHooks.useSubscription<UpdateBondReportsSubscription, UpdateBondReportsSubscriptionVariables>(UpdateBondReportsDocument, baseOptions);
+      }
+export type UpdateBondReportsSubscriptionHookResult = ReturnType<typeof useUpdateBondReportsSubscription>;
+export type UpdateBondReportsSubscriptionResult = ApolloReactCommon.SubscriptionResult<UpdateBondReportsSubscription>;
