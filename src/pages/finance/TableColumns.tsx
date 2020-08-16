@@ -331,7 +331,7 @@ export const bondColumns = [
         dataIndex: "nearestPayment",
         render: (_items: any, item: any) => {
             if (item.nearestPayment !== null) {
-                const payment = (item.nearestPayment.paymentValue / 100) * item.amount
+                const payment = item.nearestPayment.allPayment / 100
 
                 return (
                     <Tooltip
@@ -366,5 +366,51 @@ export const bondColumns = [
         title: "Время",
         width: 130,
         dataIndex: "updateTime",
+    },
+]
+
+export const paymentsColumns = [
+    {
+        key: "name",
+        title: "Название",
+        dataIndex: "name",
+        width: 130,
+        fixed: "left" as "left",
+    },
+    {
+        key: "paymentValue",
+        title: "Выплата",
+        dataIndex: "paymentValue",
+        width: 110,
+        sorter: (a: any, b: any) => a.paymentValue - b.paymentValue,
+        render: (_items: any, item: any) => toCurrency(item.paymentValue),
+    },
+    {
+        key: "allPayment",
+        title: "Всего",
+        dataIndex: "allPayment",
+        width: 110,
+        sorter: (a: any, b: any) => a.allPayment - b.allPayment,
+        render: (_items: any, item: any) => toCurrency(item.allPayment),
+    },
+    {
+        key: "registryCloseDate",
+        title: "Дата",
+        width: 130,
+        dataIndex: "registryCloseDate",
+        render: (_items: any, item: any) => <>{getNumericStringDate(item.registryCloseDate)}</>,
+    },
+    {
+        key: "ticket",
+        title: "Тикет",
+        dataIndex: "ticket",
+        width: 110,
+    },
+    {
+        key: "amount",
+        title: "Кол-во",
+        dataIndex: "amount",
+        width: 110,
+        sorter: (a: any, b: any) => a.amount - b.amount,
     },
 ]

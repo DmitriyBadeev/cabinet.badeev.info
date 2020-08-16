@@ -158,3 +158,31 @@ subscription updateBondReports($portfolioId: Int!) {
         hasAmortized
     }
 }
+
+subscription updatePricesReport {
+    onUpdatePricesReport {
+        stockPrice
+        fondPrice
+        bondPrice
+    }
+}
+
+query allAssetPricesReport {
+    allAssetPricesReport {
+        bondPrice
+        stockPrice
+        fondPrice
+    }
+}
+
+query AllFuturePayments {
+    allFuturePaymentsReport {
+        name
+        ticket
+        paymentValue
+        amount
+        allPayment
+        registryCloseDate
+        currencyId
+    }
+}

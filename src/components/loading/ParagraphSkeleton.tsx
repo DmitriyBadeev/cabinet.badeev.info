@@ -5,7 +5,7 @@ type loadingProp = {
     loading: boolean
 }
 
-const LoadingHOC: React.FC<loadingProp> = (props) => {
+const ParagraphSkeleton: React.FC<loadingProp> = (props) => {
     return (
         <Skeleton active={true} loading={props.loading} paragraph={{ rows: 2 }}>
             {props.children}
@@ -13,4 +13,4 @@ const LoadingHOC: React.FC<loadingProp> = (props) => {
     )
 }
 
-export default LoadingHOC
+export default ParagraphSkeleton

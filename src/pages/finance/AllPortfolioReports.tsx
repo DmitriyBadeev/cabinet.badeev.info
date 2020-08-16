@@ -1,16 +1,22 @@
 import React, { CSSProperties, useEffect } from "react"
-import { Row, Col, message, Statistic, Space, Divider, Button } from "antd"
+import { Row, Col, message, Statistic, Space, Divider, Button, Table } from "antd"
 import { ContentWrapper } from "common-styles"
 import {
     usePortfolioReportsQuery,
     useUpdatePortfoliosReportSubscription,
     useStartPortfoliosReportUpdateMutation,
+    useUpdatePricesReportSubscription,
+    useAllAssetPricesReportQuery,
+    useAllFuturePaymentsQuery,
 } from "finance-types"
 import styled from "styled-components"
 import { toCurrency, toPercent } from "helpers/financeHelpers"
 import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons"
 import FadePage from "components/fade/FadePage"
-import LoadingHOC from "components/loading/LoadingHOC"
+import ParagraphSkeleton from "components/loading/ParagraphSkeleton"
+import { Pie } from "@ant-design/charts"
+import { paymentsColumns } from "./TableColumns"
+import LocalLoadingWrapper from "components/loading/LocalLoadingWrapper"
 
 const StatisticTitle = styled.h3`
     font-size: 1rem;
@@ -35,8 +41,11 @@ const PercentIcon = styled.div<{ isDown: boolean }>`
 
 const AllPortfolioReports: React.FC = () => {
     const { data, loading, error } = usePortfolioReportsQuery()
+    const AllPrices = useAllAssetPricesReportQuery()
+    const AllFuturePayments = useAllFuturePaymentsQuery()
 
     const UpdatePortfolios = useUpdatePortfoliosReportSubscription()
+    const UpdatePricesReport = useUpdatePricesReportSubscription()
     const [startUpdateMutation, startUpdateMutationData] = useStartPortfoliosReportUpdateMutation()
 
     useEffect(() => {
@@ -44,11 +53,39 @@ const AllPortfolioReports: React.FC = () => {
     }, [startUpdateMutation])
 
     if (error) message.error(error.message)
+    if (AllPrices.error) message.error(AllPrices.error.message)
+    if (AllFuturePayments.error) message.error(AllFuturePayments.error.message)
+
     if (UpdatePortfolios.error) message.error(UpdatePortfolios.error.message)
+    if (UpdatePricesReport.error) message.error(UpdatePricesReport.error.message)
+
     if (startUpdateMutationData.error)
         message.error(`Не удалось запустить обновление: ${startUpdateMutationData.error.message}`)
 
     const report = UpdatePortfolios.data?.onUpdatePortfoliosReport ?? data?.allPortfoliosReport
+    const allPricesReport = UpdatePricesReport.data?.onUpdatePricesReport ?? AllPrices.data?.allAssetPricesReport
+
+    const pieData = [
+        {
+            type: "Стоимость акций",
+            value: allPricesReport?.stockPrice,
+        },
+        {
+            type: "Стоимость фондов",
+            value: allPricesReport?.fondPrice,
+        },
+        {
+            type: "Стоимость облигаций",
+            value: allPricesReport?.bondPrice,
+        },
+    ]
+
+    const payments = AllFuturePayments.data?.allFuturePaymentsReport?.map((p, i) => {
+        return {
+            key: i,
+            ...p,
+        }
+    })
 
     const getStatStyle: (value: number | undefined) => CSSProperties = (value: number | undefined) => {
         if (value && value >= 0) {
@@ -95,7 +132,7 @@ const AllPortfolioReports: React.FC = () => {
             <Row justify="center" gutter={[30, 30]}>
                 <Col span={7}>
                     <ContentWrapper>
-                        <LoadingHOC loading={loading}>
+                        <ParagraphSkeleton loading={loading}>
                             <Space direction="vertical">
                                 <Statistic
                                     title={<StatisticTitle>Суммарная стоимость</StatisticTitle>}
@@ -107,12 +144,12 @@ const AllPortfolioReports: React.FC = () => {
                                     valueStyle={{ color: "#aeaeae", fontSize: "1rem" }}
                                 />
                             </Space>
-                        </LoadingHOC>
+                        </ParagraphSkeleton>
                     </ContentWrapper>
                 </Col>
                 <Col span={10}>
                     <ContentWrapper>
-                        <LoadingHOC loading={loading}>
+                        <ParagraphSkeleton loading={loading}>
                             <Row justify="space-around">
                                 <Col>
                                     <Space direction="vertical">
@@ -146,12 +183,12 @@ const AllPortfolioReports: React.FC = () => {
                                     </Space>
                                 </Col>
                             </Row>
-                        </LoadingHOC>
+                        </ParagraphSkeleton>
                     </ContentWrapper>
                 </Col>
                 <Col span={7}>
-                    <ContentWrapper>
-                        <LoadingHOC loading={loading}>
+                    <ContentWrapper style={{ height: "100%" }}>
+                        <ParagraphSkeleton loading={loading}>
                             <Space direction="vertical">
                                 <Statistic
                                     title={<StatisticTitle>Свободных средств</StatisticTitle>}
@@ -163,7 +200,40 @@ const AllPortfolioReports: React.FC = () => {
                                     <Button>Вывести</Button>
                                 </Space>
                             </Space>
-                        </LoadingHOC>
+                        </ParagraphSkeleton>
+                    </ContentWrapper>
+                </Col>
+            </Row>
+            <Row justify="center" gutter={[30, 30]}>
+                <Col span={12}>
+                    <ContentWrapper style={{ height: "100%" }}>
+                        <LocalLoadingWrapper loading={AllPrices.loading}>
+                            <StatisticTitle style={{ marginBottom: "10px" }}>Диаграмма по типам активов</StatisticTitle>
+                            <Pie
+                                angleField="value"
+                                data={pieData}
+                                colorField="type"
+                                radius={0.8}
+                                forceFit={true}
+                                label={{
+                                    visible: true,
+                                    type: "spider",
+                                    formatter: (text) => `${toCurrency(Number(text) ?? 0)}`,
+                                }}
+                            />
+                        </LocalLoadingWrapper>
+                    </ContentWrapper>
+                </Col>
+                <Col span={12}>
+                    <ContentWrapper style={{ height: "100%" }}>
+                        <StatisticTitle style={{ marginBottom: "10px" }}>Ближайшие выплаты</StatisticTitle>
+                        <Table
+                            loading={AllFuturePayments.loading}
+                            columns={paymentsColumns}
+                            dataSource={payments}
+                            scroll={{ x: 700 }}
+                            pagination={{ pageSize: 5 }}
+                        />
                     </ContentWrapper>
                 </Col>
             </Row>
