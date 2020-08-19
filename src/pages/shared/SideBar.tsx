@@ -32,7 +32,7 @@ const MenuWrapper = styled.div`
 const StyledSider = styled(Sider)`
     position: fixed;
     height: 100vh;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 `
 
 const WrapperTrigger = styled.div`

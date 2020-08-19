@@ -213,7 +213,7 @@ const AllPortfolioReports: React.FC = () => {
                                 angleField="value"
                                 data={pieData}
                                 colorField="type"
-                                radius={0.8}
+                                radius={0.7}
                                 forceFit={true}
                                 label={{
                                     visible: true,

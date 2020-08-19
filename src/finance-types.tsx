@@ -29,6 +29,7 @@ export type Queries = {
     currencyActions?: Maybe<Array<Maybe<CurrencyAction>>>
     currentUserBalance: Scalars["Float"]
     fondReports?: Maybe<Array<Maybe<FondReport>>>
+    marketQuotes?: Maybe<Array<Maybe<CommonMarketQuote>>>
     portfolios?: Maybe<Array<Maybe<Portfolio>>>
     secretData?: Maybe<Scalars["String"]>
     stockReports?: Maybe<Array<Maybe<StockReport>>>
@@ -195,6 +196,15 @@ export type PaymentDataReport = {
     paymentValue: Scalars["Float"]
     registryCloseDate: Scalars["DateTime"]
     ticket?: Maybe<Scalars["String"]>
+}
+
+export type CommonMarketQuote = {
+    __typename?: "CommonMarketQuote"
+    change: Scalars["Float"]
+    name?: Maybe<Scalars["String"]>
+    ticket?: Maybe<Scalars["String"]>
+    time?: Maybe<Scalars["String"]>
+    value: Scalars["Float"]
 }
 
 export type AssetOperation = {
@@ -567,6 +577,21 @@ export type AllFuturePaymentsQuery = { __typename?: "Queries" } & {
                 { __typename?: "PaymentDataReport" } & Pick<
                     PaymentDataReport,
                     "name" | "ticket" | "paymentValue" | "amount" | "allPayment" | "registryCloseDate" | "currencyId"
+                >
+            >
+        >
+    >
+}
+
+export type MarketQuotesQueryVariables = Exact<{ [key: string]: never }>
+
+export type MarketQuotesQuery = { __typename?: "Queries" } & {
+    marketQuotes?: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "CommonMarketQuote" } & Pick<
+                    CommonMarketQuote,
+                    "name" | "ticket" | "value" | "change" | "time"
                 >
             >
         >
@@ -1163,6 +1188,7 @@ export const UpdatePricesReportDocument = gql`
  *   },
  * });
  */
+
 export function useUpdatePricesReportSubscription(
     baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
         UpdatePricesReportSubscription,
@@ -1274,3 +1300,46 @@ export type AllFuturePaymentsQueryResult = ApolloReactCommon.QueryResult<
     AllFuturePaymentsQuery,
     AllFuturePaymentsQueryVariables
 >
+export const MarketQuotesDocument = gql`
+    query marketQuotes {
+        marketQuotes {
+            name
+            ticket
+            value
+            change
+            time
+        }
+    }
+`
+
+/**
+ * __useMarketQuotesQuery__
+ *
+ * To run a query within a React component, call `useMarketQuotesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMarketQuotesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMarketQuotesQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMarketQuotesQuery(
+    baseOptions?: ApolloReactHooks.QueryHookOptions<MarketQuotesQuery, MarketQuotesQueryVariables>
+) {
+    return ApolloReactHooks.useQuery<MarketQuotesQuery, MarketQuotesQueryVariables>(MarketQuotesDocument, baseOptions)
+}
+export function useMarketQuotesLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<MarketQuotesQuery, MarketQuotesQueryVariables>
+) {
+    return ApolloReactHooks.useLazyQuery<MarketQuotesQuery, MarketQuotesQueryVariables>(
+        MarketQuotesDocument,
+        baseOptions
+    )
+}
+export type MarketQuotesQueryHookResult = ReturnType<typeof useMarketQuotesQuery>
+export type MarketQuotesLazyQueryHookResult = ReturnType<typeof useMarketQuotesLazyQuery>
+export type MarketQuotesQueryResult = ApolloReactCommon.QueryResult<MarketQuotesQuery, MarketQuotesQueryVariables>

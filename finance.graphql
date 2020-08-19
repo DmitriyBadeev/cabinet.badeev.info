@@ -186,3 +186,13 @@ query AllFuturePayments {
         currencyId
     }
 }
+
+query marketQuotes {
+    marketQuotes {
+        name
+        ticket
+        value
+        change
+        time
+    }
+}

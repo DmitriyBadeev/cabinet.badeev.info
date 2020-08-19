@@ -14,7 +14,7 @@ type propStyleType = {
 
 const HeaderWrapper = styled(Layout.Header)`
     background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: space-between;
     align-items: center;

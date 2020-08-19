@@ -7,12 +7,14 @@ import PortfolioReport from "./PortfolioReport"
 import FadePage from "components/fade/FadePage"
 import FinanceClient from "./FinanceClient"
 import Loading from "components/loading/Loading"
+import Quotes from "./Quotes"
 
 const { TabPane } = Tabs
 
 const FinancePage: React.FC = () => {
     return (
         <ApolloProvider client={FinanceClient}>
+            <Quotes />
             <AllPortfolioReports />
             <PortfoliosTabs />
         </ApolloProvider>

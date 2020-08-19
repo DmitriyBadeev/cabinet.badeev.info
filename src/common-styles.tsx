@@ -20,7 +20,17 @@ export const Underline = styled.span`
 `
 export const ContentWrapper = styled(Content)`
     background: white;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     padding: 25px;
-    border-radius: 5px;
+    border-radius: 10px;
+`
+type IndexProp = {
+    index: number
+}
+
+export const ColorIndex = styled.span<IndexProp>`
+    color: ${(props) => (props.index >= 0 ? props.theme.green : props.theme.red)};
+
+    &::before {
+        content: ${(props) => (props.index > 0 ? `"+"` : `""`)};
+    }
 `

@@ -1,20 +1,8 @@
 import React from "react"
-import styled from "styled-components"
 import { toCurrency, toPercent } from "helpers/financeHelpers"
 import { getNumericStringDate } from "helpers/dateHelpers"
 import { Tooltip } from "antd"
-
-type IndexProp = {
-    index: number
-}
-
-const ColorIndex = styled.span<IndexProp>`
-    color: ${(props) => (props.index >= 0 ? props.theme.green : props.theme.red)};
-
-    &::before {
-        content: ${(props) => (props.index > 0 ? `"+"` : `""`)};
-    }
-`
+import { ColorIndex } from "common-styles"
 
 export const stockColumns = [
     {
