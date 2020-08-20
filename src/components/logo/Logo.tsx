@@ -4,7 +4,7 @@ import styled from "styled-components"
 
 const LogoStyle = styled.div<propTypes>`
     font-size: 1.3rem;
-    color: "#222";
+    color: #fff;
     transition: all 0.2s;
     padding: 0 5px;
     border-radius: 10px;

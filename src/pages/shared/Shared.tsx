@@ -1,6 +1,5 @@
 import React from "react"
 import SideBar from "./SideBar"
-import Header from "./Header"
 import styled from "styled-components"
 import { Layout } from "antd"
 import { observer } from "mobx-react"
@@ -26,7 +25,6 @@ const Shared: React.FC = observer((props) => {
         <MainLayout>
             <SideBar />
             <Layout>
-                <Header />
                 <PageLayout collapsedSider={NavStore.isMenuCollapsed}>{props.children}</PageLayout>
             </Layout>
         </MainLayout>

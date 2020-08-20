@@ -1,5 +1,5 @@
 import React from "react"
-import { Row, Col, message, Space } from "antd"
+import { Row, Col, message, Space, Tooltip } from "antd"
 import { useMarketQuotesQuery } from "finance-types"
 import FadePage from "components/fade/FadePage"
 import { ColorIndex, Center } from "common-styles"
@@ -23,13 +23,15 @@ const Quotes: React.FC = () => {
     const quotes = data?.marketQuotes
 
     const GetMarketQuotes = () => {
-        return quotes?.map((el) => {
+        return quotes?.map((el, index) => {
             return (
-                <Space>
-                    <QuoteTitle>{el?.name}</QuoteTitle>
-                    <QuoteValue>{el?.value}</QuoteValue>
-                    <ColorIndex index={el?.change || 0}>{el?.change}</ColorIndex>
-                </Space>
+                <Tooltip title={`Время: ${el?.time}`} key={el?.name || index}>
+                    <Space>
+                        <QuoteTitle>{el?.name}</QuoteTitle>
+                        <QuoteValue>{el?.value}</QuoteValue>
+                        <ColorIndex index={el?.change || 0}>{el?.change}</ColorIndex>
+                    </Space>
+                </Tooltip>
             )
         })
     }
@@ -38,9 +40,9 @@ const Quotes: React.FC = () => {
         <FadePage>
             <Row justify="center" gutter={[20, 20]}>
                 <Col span={24}>
-                    <QuotesSkeleton loading={loading}>
+                    <QuotesLoading loading={loading}>
                         <Space size="large">{GetMarketQuotes()}</Space>
-                    </QuotesSkeleton>
+                    </QuotesLoading>
                 </Col>
             </Row>
         </FadePage>
@@ -53,7 +55,7 @@ type propTypes = {
     loading: boolean
 }
 
-const QuotesSkeleton: React.FC<propTypes> = (props) => {
+const QuotesLoading: React.FC<propTypes> = (props) => {
     if (props.loading) {
         return (
             <Center>
