@@ -42,16 +42,19 @@ const PortfolioReport: React.FC<propTypes> = (props) => {
         variables: {
             portfolioId: props.portfolioId,
         },
+        shouldResubscribe: true,
     })
     const UpdateFonds = useUpdateFondReportsSubscription({
         variables: {
             portfolioId: props.portfolioId,
         },
+        shouldResubscribe: true,
     })
     const UpdateBonds = useUpdateBondReportsSubscription({
         variables: {
             portfolioId: props.portfolioId,
         },
+        shouldResubscribe: true,
     })
 
     const [startUpdateMutation, startUpdateMutationData] = useStartAssetReportsUpdateMutation()

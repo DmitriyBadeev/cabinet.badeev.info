@@ -44,8 +44,13 @@ const AllPortfolioReports: React.FC = () => {
     const AllPrices = useAllAssetPricesReportQuery()
     const AllFuturePayments = useAllFuturePaymentsQuery()
 
-    const UpdatePortfolios = useUpdatePortfoliosReportSubscription()
-    const UpdatePricesReport = useUpdatePricesReportSubscription()
+    const UpdatePortfolios = useUpdatePortfoliosReportSubscription({
+        shouldResubscribe: true,
+    })
+    const UpdatePricesReport = useUpdatePricesReportSubscription({
+        shouldResubscribe: true,
+    })
+
     const [startUpdateMutation, startUpdateMutationData] = useStartPortfoliosReportUpdateMutation()
 
     useEffect(() => {
