@@ -34,3 +34,11 @@ export const ColorIndex = styled.span<IndexProp>`
         content: ${(props) => (props.index > 0 ? `"+"` : `""`)};
     }
 `
+
+export const BlockTitle = styled.h3`
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    color: #6e6e6e;
+`

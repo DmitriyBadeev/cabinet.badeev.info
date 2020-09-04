@@ -31,6 +31,7 @@ query stockReports($portfolioId: Int!) {
         nearestDividend {
             currencyId
             paymentValue
+            allPayment
             registryCloseDate
         }
         paidDividends
@@ -67,6 +68,7 @@ query bondReports($portfolioId: Int!) {
         nearestPayment {
             currencyId
             paymentValue
+            allPayment
             registryCloseDate
         }
         paidPayments
@@ -114,6 +116,7 @@ subscription updateStockReports($portfolioId: Int!) {
         nearestDividend {
             currencyId
             paymentValue
+            allPayment
             registryCloseDate
         }
         paidDividends
@@ -150,6 +153,7 @@ subscription updateBondReports($portfolioId: Int!) {
         nearestPayment {
             currencyId
             paymentValue
+            allPayment
             registryCloseDate
         }
         paidPayments
@@ -195,4 +199,55 @@ query marketQuotes {
         change
         time
     }
+}
+
+query searchAsset($ticket: String!) {
+    searchAsset(ticket: $ticket) {
+        name
+        ticket
+        type
+        typeName
+    }
+}
+
+query assetReport($ticket: String!) {
+    assetReport(ticket: $ticket) {
+        name
+        ticket
+        amount
+        price
+        priceChange
+        allPrice
+        boughtPrice
+        nearestDividend {
+            name
+            paymentValue
+            amount
+            allPayment
+            currencyId
+        }
+        paidDividends
+        paperProfit
+        paperProfitPercent
+        payments {
+            name
+            paymentValue
+            amount
+            allPayment
+            currencyId
+        }
+        updateTime
+    }
+}
+
+query stockCandles($ticket: String!, $from: DateTime!, $interval: CandleInterval!) {
+  stockCandles(ticket: $ticket, from: $from, interval: $interval) {
+    open
+    close
+    high
+    low
+    value
+    volume
+    dateTime
+  }
 }

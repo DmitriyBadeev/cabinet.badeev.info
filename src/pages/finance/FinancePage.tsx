@@ -3,6 +3,7 @@ import { ApolloProvider } from "@apollo/react-hooks"
 import AllPortfolioReports from "./AllPortfolioReports"
 import { Tabs, message } from "antd"
 import { usePortfoliosQuery } from "finance-types"
+import SearchAsset from "./SearchAsset"
 import PortfolioReport from "./PortfolioReport"
 import FadePage from "components/fade/FadePage"
 import FinanceClient from "./FinanceClient"
@@ -14,6 +15,7 @@ const { TabPane } = Tabs
 const FinancePage: React.FC = () => {
     return (
         <ApolloProvider client={FinanceClient}>
+            <SearchAsset />
             <Quotes />
             <AllPortfolioReports />
             <PortfoliosTabs />

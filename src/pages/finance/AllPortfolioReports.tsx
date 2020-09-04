@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect } from "react"
+import React, { useEffect } from "react"
 import { Row, Col, message, Statistic, Space, Divider, Button, Table } from "antd"
 import { ContentWrapper } from "common-styles"
 import {
@@ -9,35 +9,14 @@ import {
     useAllAssetPricesReportQuery,
     useAllFuturePaymentsQuery,
 } from "finance-types"
-import styled from "styled-components"
 import { toCurrency, toPercent } from "helpers/financeHelpers"
-import { ArrowUpOutlined, ArrowDownOutlined } from "@ant-design/icons"
 import FadePage from "components/fade/FadePage"
 import ParagraphSkeleton from "components/loading/ParagraphSkeleton"
 import { Pie } from "@ant-design/charts"
 import { paymentsColumns } from "./TableColumns"
 import LocalLoadingWrapper from "components/loading/LocalLoadingWrapper"
-
-const StatisticTitle = styled.h3`
-    font-size: 1rem;
-    margin: 0;
-    padding: 0;
-    font-weight: 400;
-    color: #6e6e6e;
-`
-
-const PercentIcon = styled.div<{ isDown: boolean }>`
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    background: ${(props) => (props.isDown ? "#cf1322" : "#75d728")};
-    color: white;
-    border-radius: 50%;
-    margin-right: 5px;
-`
+import { BlockTitle } from "common-styles"
+import { getProfitPrefix, getStatStyle, getProfitPercentPrefix } from "./helpers/styles"
 
 const AllPortfolioReports: React.FC = () => {
     const { data, loading, error } = usePortfolioReportsQuery()
@@ -92,46 +71,6 @@ const AllPortfolioReports: React.FC = () => {
         }
     })
 
-    const getStatStyle: (value: number | undefined) => CSSProperties = (value: number | undefined) => {
-        if (value && value >= 0) {
-            return {
-                color: "#75D728",
-                fontWeight: 600,
-                fontSize: "2.1rem",
-            }
-        }
-
-        return {
-            color: "#cf1322",
-            fontWeight: 600,
-            fontSize: "2.1rem",
-        }
-    }
-
-    const getProfitPrefix = (value: number | undefined) => {
-        if (value && value > 0) return "+"
-
-        return ""
-    }
-
-    const getProfitPercentPrefix = (value: number | undefined) => {
-        if (value && value > 0)
-            return (
-                <PercentIcon isDown={false}>
-                    <ArrowUpOutlined />
-                </PercentIcon>
-            )
-
-        if (value && value < 0)
-            return (
-                <PercentIcon isDown={true}>
-                    <ArrowDownOutlined />
-                </PercentIcon>
-            )
-
-        return ""
-    }
-
     return (
         <FadePage>
             <Row justify="center" gutter={[30, 30]}>
@@ -140,7 +79,7 @@ const AllPortfolioReports: React.FC = () => {
                         <ParagraphSkeleton loading={loading}>
                             <Space direction="vertical">
                                 <Statistic
-                                    title={<StatisticTitle>Суммарная стоимость</StatisticTitle>}
+                                    title={<BlockTitle>Суммарная стоимость</BlockTitle>}
                                     value={`${toCurrency(report?.allCost || 0)}`}
                                     valueStyle={{ color: "#407BFF", fontWeight: 600, fontSize: "2.1rem" }}
                                 />
@@ -159,7 +98,7 @@ const AllPortfolioReports: React.FC = () => {
                                 <Col>
                                     <Space direction="vertical">
                                         <Statistic
-                                            title={<StatisticTitle>Бумажная прибыль</StatisticTitle>}
+                                            title={<BlockTitle>Бумажная прибыль</BlockTitle>}
                                             value={toCurrency(report?.allPaperProfit || 0)}
                                             prefix={getProfitPrefix(report?.allPaperProfit)}
                                             valueStyle={getStatStyle(report?.allPaperProfit)}
@@ -175,7 +114,7 @@ const AllPortfolioReports: React.FC = () => {
                                 <Col>
                                     <Space direction="vertical">
                                         <Statistic
-                                            title={<StatisticTitle>Дивидендная прибыль</StatisticTitle>}
+                                            title={<BlockTitle>Дивидендная прибыль</BlockTitle>}
                                             value={toCurrency(report?.allPaymentProfit || 0)}
                                             prefix={getProfitPrefix(report?.allPaymentProfit)}
                                             valueStyle={getStatStyle(report?.allPaymentProfit)}
@@ -196,7 +135,7 @@ const AllPortfolioReports: React.FC = () => {
                         <ParagraphSkeleton loading={loading}>
                             <Space direction="vertical">
                                 <Statistic
-                                    title={<StatisticTitle>Свободных средств</StatisticTitle>}
+                                    title={<BlockTitle>Свободных средств</BlockTitle>}
                                     value={`${toCurrency(report?.allUserBalance || 0)}`}
                                     valueStyle={{ color: "#333", fontWeight: 600, fontSize: "1.8rem" }}
                                 />
@@ -213,7 +152,7 @@ const AllPortfolioReports: React.FC = () => {
                 <Col span={12}>
                     <ContentWrapper style={{ height: "100%" }}>
                         <LocalLoadingWrapper loading={AllPrices.loading}>
-                            <StatisticTitle style={{ marginBottom: "10px" }}>Диаграмма по типам активов</StatisticTitle>
+                            <BlockTitle style={{ marginBottom: "10px" }}>Диаграмма по типам активов</BlockTitle>
                             <Pie
                                 angleField="value"
                                 data={pieData}
@@ -231,7 +170,7 @@ const AllPortfolioReports: React.FC = () => {
                 </Col>
                 <Col span={12}>
                     <ContentWrapper style={{ height: "100%" }}>
-                        <StatisticTitle style={{ marginBottom: "10px" }}>Ближайшие выплаты</StatisticTitle>
+                        <BlockTitle style={{ marginBottom: "10px" }}>Ближайшие выплаты</BlockTitle>
                         <Table
                             loading={AllFuturePayments.loading}
                             columns={paymentsColumns}

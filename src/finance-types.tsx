@@ -24,6 +24,7 @@ export type Queries = {
     allFuturePaymentsReport?: Maybe<Array<Maybe<PaymentDataReport>>>
     allPortfoliosReport?: Maybe<AllPortfoliosReport>
     assetActions?: Maybe<Array<Maybe<AssetAction>>>
+    assetReport?: Maybe<AssetData>
     assetTypes?: Maybe<Array<Maybe<AssetType>>>
     bondReports?: Maybe<Array<Maybe<BondReport>>>
     currencyActions?: Maybe<Array<Maybe<CurrencyAction>>>
@@ -31,7 +32,9 @@ export type Queries = {
     fondReports?: Maybe<Array<Maybe<FondReport>>>
     marketQuotes?: Maybe<Array<Maybe<CommonMarketQuote>>>
     portfolios?: Maybe<Array<Maybe<Portfolio>>>
+    searchAsset?: Maybe<SearchData>
     secretData?: Maybe<Scalars["String"]>
+    stockCandles?: Maybe<Array<Maybe<StockCandle>>>
     stockReports?: Maybe<Array<Maybe<StockReport>>>
     test?: Maybe<Scalars["String"]>
 }
@@ -44,12 +47,26 @@ export type QueriesAllCurrencyOperationsArgs = {
     portfolioId: Scalars["Int"]
 }
 
+export type QueriesAssetReportArgs = {
+    ticket?: Maybe<Scalars["String"]>
+}
+
 export type QueriesBondReportsArgs = {
     portfolioId: Scalars["Int"]
 }
 
 export type QueriesFondReportsArgs = {
     portfolioId: Scalars["Int"]
+}
+
+export type QueriesSearchAssetArgs = {
+    ticket?: Maybe<Scalars["String"]>
+}
+
+export type QueriesStockCandlesArgs = {
+    from: Scalars["DateTime"]
+    interval: CandleInterval
+    ticket?: Maybe<Scalars["String"]>
 }
 
 export type QueriesStockReportsArgs = {
@@ -207,6 +224,31 @@ export type CommonMarketQuote = {
     value: Scalars["Float"]
 }
 
+export type SearchData = {
+    __typename?: "SearchData"
+    name?: Maybe<Scalars["String"]>
+    ticket?: Maybe<Scalars["String"]>
+    type?: Maybe<Scalars["String"]>
+    typeName?: Maybe<Scalars["String"]>
+}
+
+export type AssetData = {
+    __typename?: "AssetData"
+    allPrice: Scalars["Float"]
+    amount: Scalars["Int"]
+    boughtPrice: Scalars["Float"]
+    name?: Maybe<Scalars["String"]>
+    nearestDividend?: Maybe<PaymentData>
+    paidDividends: Scalars["Float"]
+    paperProfit: Scalars["Float"]
+    paperProfitPercent: Scalars["Float"]
+    payments?: Maybe<Array<Maybe<PaymentData>>>
+    price: Scalars["Float"]
+    priceChange: Scalars["Float"]
+    ticket?: Maybe<Scalars["String"]>
+    updateTime?: Maybe<Scalars["String"]>
+}
+
 export type AssetOperation = {
     __typename?: "AssetOperation"
     amount: Scalars["Int"]
@@ -254,6 +296,24 @@ export type CurrencyAction = {
     currencyOperations?: Maybe<Array<Maybe<CurrencyOperation>>>
     id: Scalars["Int"]
     name?: Maybe<Scalars["String"]>
+}
+
+export type StockCandle = {
+    __typename?: "StockCandle"
+    close: Scalars["Float"]
+    dateTime: Scalars["DateTime"]
+    high: Scalars["Float"]
+    low: Scalars["Float"]
+    open: Scalars["Float"]
+    value: Scalars["Float"]
+    volume: Scalars["Float"]
+}
+
+export enum CandleInterval {
+    Week = "WEEK",
+    Day = "DAY",
+    Month = "MONTH",
+    Hour = "HOUR",
 }
 
 export type OperationResult = {
@@ -351,7 +411,7 @@ export type StockReportsQuery = { __typename?: "Queries" } & {
                         nearestDividend?: Maybe<
                             { __typename?: "PaymentData" } & Pick<
                                 PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
+                                "currencyId" | "paymentValue" | "allPayment" | "registryCloseDate"
                             >
                         >
                     }
@@ -413,7 +473,7 @@ export type BondReportsQuery = { __typename?: "Queries" } & {
                         nearestPayment?: Maybe<
                             { __typename?: "PaymentData" } & Pick<
                                 PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
+                                "currencyId" | "paymentValue" | "allPayment" | "registryCloseDate"
                             >
                         >
                     }
@@ -481,7 +541,7 @@ export type UpdateStockReportsSubscription = { __typename?: "Subscriptions" } & 
                         nearestDividend?: Maybe<
                             { __typename?: "PaymentData" } & Pick<
                                 PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
+                                "currencyId" | "paymentValue" | "allPayment" | "registryCloseDate"
                             >
                         >
                     }
@@ -543,7 +603,7 @@ export type UpdateBondReportsSubscription = { __typename?: "Subscriptions" } & {
                         nearestPayment?: Maybe<
                             { __typename?: "PaymentData" } & Pick<
                                 PaymentData,
-                                "currencyId" | "paymentValue" | "registryCloseDate"
+                                "currencyId" | "paymentValue" | "allPayment" | "registryCloseDate"
                             >
                         >
                     }
@@ -592,6 +652,73 @@ export type MarketQuotesQuery = { __typename?: "Queries" } & {
                 { __typename?: "CommonMarketQuote" } & Pick<
                     CommonMarketQuote,
                     "name" | "ticket" | "value" | "change" | "time"
+                >
+            >
+        >
+    >
+}
+
+export type SearchAssetQueryVariables = Exact<{
+    ticket: Scalars["String"]
+}>
+
+export type SearchAssetQuery = { __typename?: "Queries" } & {
+    searchAsset?: Maybe<{ __typename?: "SearchData" } & Pick<SearchData, "name" | "ticket" | "type" | "typeName">>
+}
+
+export type AssetReportQueryVariables = Exact<{
+    ticket: Scalars["String"]
+}>
+
+export type AssetReportQuery = { __typename?: "Queries" } & {
+    assetReport?: Maybe<
+        { __typename?: "AssetData" } & Pick<
+            AssetData,
+            | "name"
+            | "ticket"
+            | "amount"
+            | "price"
+            | "priceChange"
+            | "allPrice"
+            | "boughtPrice"
+            | "paidDividends"
+            | "paperProfit"
+            | "paperProfitPercent"
+            | "updateTime"
+        > & {
+                nearestDividend?: Maybe<
+                    { __typename?: "PaymentData" } & Pick<
+                        PaymentData,
+                        "name" | "paymentValue" | "amount" | "allPayment" | "currencyId"
+                    >
+                >
+                payments?: Maybe<
+                    Array<
+                        Maybe<
+                            { __typename?: "PaymentData" } & Pick<
+                                PaymentData,
+                                "name" | "paymentValue" | "amount" | "allPayment" | "currencyId"
+                            >
+                        >
+                    >
+                >
+            }
+    >
+}
+
+export type StockCandlesQueryVariables = Exact<{
+    ticket: Scalars["String"]
+    from: Scalars["DateTime"]
+    interval: CandleInterval
+}>
+
+export type StockCandlesQuery = { __typename?: "Queries" } & {
+    stockCandles?: Maybe<
+        Array<
+            Maybe<
+                { __typename?: "StockCandle" } & Pick<
+                    StockCandle,
+                    "open" | "close" | "high" | "low" | "value" | "volume" | "dateTime"
                 >
             >
         >
@@ -701,6 +828,7 @@ export const StockReportsDocument = gql`
             nearestDividend {
                 currencyId
                 paymentValue
+                allPayment
                 registryCloseDate
             }
             paidDividends
@@ -802,6 +930,7 @@ export const BondReportsDocument = gql`
             nearestPayment {
                 currencyId
                 paymentValue
+                allPayment
                 registryCloseDate
             }
             paidPayments
@@ -1026,6 +1155,7 @@ export const UpdateStockReportsDocument = gql`
             nearestDividend {
                 currencyId
                 paymentValue
+                allPayment
                 registryCloseDate
             }
             paidDividends
@@ -1124,6 +1254,7 @@ export const UpdateBondReportsDocument = gql`
             nearestPayment {
                 currencyId
                 paymentValue
+                allPayment
                 registryCloseDate
             }
             paidPayments
@@ -1188,7 +1319,6 @@ export const UpdatePricesReportDocument = gql`
  *   },
  * });
  */
-
 export function useUpdatePricesReportSubscription(
     baseOptions?: ApolloReactHooks.SubscriptionHookOptions<
         UpdatePricesReportSubscription,
@@ -1343,3 +1473,152 @@ export function useMarketQuotesLazyQuery(
 export type MarketQuotesQueryHookResult = ReturnType<typeof useMarketQuotesQuery>
 export type MarketQuotesLazyQueryHookResult = ReturnType<typeof useMarketQuotesLazyQuery>
 export type MarketQuotesQueryResult = ApolloReactCommon.QueryResult<MarketQuotesQuery, MarketQuotesQueryVariables>
+export const SearchAssetDocument = gql`
+    query searchAsset($ticket: String!) {
+        searchAsset(ticket: $ticket) {
+            name
+            ticket
+            type
+            typeName
+        }
+    }
+`
+
+/**
+ * __useSearchAssetQuery__
+ *
+ * To run a query within a React component, call `useSearchAssetQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchAssetQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchAssetQuery({
+ *   variables: {
+ *      ticket: // value for 'ticket'
+ *   },
+ * });
+ */
+export function useSearchAssetQuery(
+    baseOptions?: ApolloReactHooks.QueryHookOptions<SearchAssetQuery, SearchAssetQueryVariables>
+) {
+    return ApolloReactHooks.useQuery<SearchAssetQuery, SearchAssetQueryVariables>(SearchAssetDocument, baseOptions)
+}
+export function useSearchAssetLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchAssetQuery, SearchAssetQueryVariables>
+) {
+    return ApolloReactHooks.useLazyQuery<SearchAssetQuery, SearchAssetQueryVariables>(SearchAssetDocument, baseOptions)
+}
+export type SearchAssetQueryHookResult = ReturnType<typeof useSearchAssetQuery>
+export type SearchAssetLazyQueryHookResult = ReturnType<typeof useSearchAssetLazyQuery>
+export type SearchAssetQueryResult = ApolloReactCommon.QueryResult<SearchAssetQuery, SearchAssetQueryVariables>
+export const AssetReportDocument = gql`
+    query assetReport($ticket: String!) {
+        assetReport(ticket: $ticket) {
+            name
+            ticket
+            amount
+            price
+            priceChange
+            allPrice
+            boughtPrice
+            nearestDividend {
+                name
+                paymentValue
+                amount
+                allPayment
+                currencyId
+            }
+            paidDividends
+            paperProfit
+            paperProfitPercent
+            payments {
+                name
+                paymentValue
+                amount
+                allPayment
+                currencyId
+            }
+            updateTime
+        }
+    }
+`
+
+/**
+ * __useAssetReportQuery__
+ *
+ * To run a query within a React component, call `useAssetReportQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAssetReportQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssetReportQuery({
+ *   variables: {
+ *      ticket: // value for 'ticket'
+ *   },
+ * });
+ */
+export function useAssetReportQuery(
+    baseOptions?: ApolloReactHooks.QueryHookOptions<AssetReportQuery, AssetReportQueryVariables>
+) {
+    return ApolloReactHooks.useQuery<AssetReportQuery, AssetReportQueryVariables>(AssetReportDocument, baseOptions)
+}
+export function useAssetReportLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<AssetReportQuery, AssetReportQueryVariables>
+) {
+    return ApolloReactHooks.useLazyQuery<AssetReportQuery, AssetReportQueryVariables>(AssetReportDocument, baseOptions)
+}
+export type AssetReportQueryHookResult = ReturnType<typeof useAssetReportQuery>
+export type AssetReportLazyQueryHookResult = ReturnType<typeof useAssetReportLazyQuery>
+export type AssetReportQueryResult = ApolloReactCommon.QueryResult<AssetReportQuery, AssetReportQueryVariables>
+export const StockCandlesDocument = gql`
+    query stockCandles($ticket: String!, $from: DateTime!, $interval: CandleInterval!) {
+        stockCandles(ticket: $ticket, from: $from, interval: $interval) {
+            open
+            close
+            high
+            low
+            value
+            volume
+            dateTime
+        }
+    }
+`
+
+/**
+ * __useStockCandlesQuery__
+ *
+ * To run a query within a React component, call `useStockCandlesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useStockCandlesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useStockCandlesQuery({
+ *   variables: {
+ *      ticket: // value for 'ticket'
+ *      from: // value for 'from'
+ *      interval: // value for 'interval'
+ *   },
+ * });
+ */
+export function useStockCandlesQuery(
+    baseOptions?: ApolloReactHooks.QueryHookOptions<StockCandlesQuery, StockCandlesQueryVariables>
+) {
+    return ApolloReactHooks.useQuery<StockCandlesQuery, StockCandlesQueryVariables>(StockCandlesDocument, baseOptions)
+}
+export function useStockCandlesLazyQuery(
+    baseOptions?: ApolloReactHooks.LazyQueryHookOptions<StockCandlesQuery, StockCandlesQueryVariables>
+) {
+    return ApolloReactHooks.useLazyQuery<StockCandlesQuery, StockCandlesQueryVariables>(
+        StockCandlesDocument,
+        baseOptions
+    )
+}
+export type StockCandlesQueryHookResult = ReturnType<typeof useStockCandlesQuery>
+export type StockCandlesLazyQueryHookResult = ReturnType<typeof useStockCandlesLazyQuery>
+export type StockCandlesQueryResult = ApolloReactCommon.QueryResult<StockCandlesQuery, StockCandlesQueryVariables>

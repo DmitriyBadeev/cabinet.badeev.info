@@ -105,19 +105,19 @@ const SideBar: React.FC = observer(() => {
             return ["1"]
         }
 
-        if (location.pathname === "/portfolio") {
+        if (location.pathname.startsWith("/portfolio")) {
             return ["2"]
         }
 
-        if (location.pathname === "/finance") {
+        if (location.pathname.startsWith("/finance")) {
             return ["3"]
         }
 
-        if (location.pathname === "/metrika") {
+        if (location.pathname.startsWith("/metrika")) {
             return ["4"]
         }
 
-        if (location.pathname === "/tools") {
+        if (location.pathname.startsWith("/tools")) {
             return ["5"]
         }
 

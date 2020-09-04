@@ -3,6 +3,7 @@ import { toCurrency, toPercent } from "helpers/financeHelpers"
 import { getNumericStringDate } from "helpers/dateHelpers"
 import { Tooltip } from "antd"
 import { ColorIndex } from "common-styles"
+import { Link } from "react-router-dom"
 
 export const stockColumns = [
     {
@@ -11,6 +12,9 @@ export const stockColumns = [
         dataIndex: "name",
         width: 150,
         fixed: "left" as "left",
+        render: (_items: any, item: any) => {
+            return <Link to={`/finance/asset/${item.ticket}`}>{item.name}</Link>
+        },
     },
     {
         key: "ticket",
@@ -135,6 +139,9 @@ export const fondColumns = [
         dataIndex: "name",
         width: 150,
         fixed: "left" as "left",
+        render: (_items: any, item: any) => {
+            return <Link to={`/finance/asset/${item.ticket}`}>{item.name}</Link>
+        },
     },
     {
         key: "ticket",
@@ -227,6 +234,9 @@ export const bondColumns = [
         dataIndex: "name",
         width: 150,
         fixed: "left" as "left",
+        render: (_items: any, item: any) => {
+            return <Link to={`/finance/asset/${item.ticket}`}>{item.name}</Link>
+        },
     },
     {
         key: "ticket",

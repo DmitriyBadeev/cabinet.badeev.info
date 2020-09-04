@@ -5,6 +5,7 @@ import useStore from "store/useStore"
 import MainPage from "pages/main/MainPage"
 import PortfolioPage from "pages/portfolio/PortfolioPage"
 import FinancePage from "pages/finance/FinancePage"
+import AssetPage from "pages/finance/asset/AssetPage"
 import MetrikaPage from "pages/metrika/MetrikaPage"
 import AuthComplete from "pages/auth/AuthComplete"
 import ToolsPage from "pages/tools/ToolsPage"
@@ -24,6 +25,9 @@ const Routes: React.FC = () => {
                 </PrivateRoute>
                 <PrivateRoute exact path="/finance">
                     <FinancePage />
+                </PrivateRoute>
+                <PrivateRoute exact path="/finance/asset/:ticket">
+                    <AssetPage />
                 </PrivateRoute>
                 <PrivateRoute exact path="/metrika">
                     <MetrikaPage />
