@@ -95,7 +95,9 @@ const SideBar: React.FC = observer(() => {
     }, [query])
 
     useEffect(() => {
-        if (error) {
+        const graphQlCodeError = error?.graphQLErrors[0]?.extensions?.code
+
+        if (graphQlCodeError === "AUTH_NOT_AUTHORIZED") {
             AuthService.signin()
         }
     }, [data, query, error, AuthService])
