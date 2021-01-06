@@ -28,7 +28,7 @@
         "apollo-link-context": "^1.0.20",
         "apollo-link-ws": "^1.0.20",
         "array-move": "^3.0.0",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "craco-less": "^1.17.0",
         "d3-dsv": "^2.0.0",
         "d3-format": "^2.0.0",
